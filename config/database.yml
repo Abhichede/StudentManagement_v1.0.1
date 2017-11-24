@@ -49,6 +49,7 @@ test:
 #
 production:
   adapter: postgresql
+  url: <%= ENV['DATABASE_URL'] %>
   database: StudentManagement_v1_0_1_production
   pool: 5
   timeout: 5000
