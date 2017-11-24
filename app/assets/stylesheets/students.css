@@ -1,0 +1,7 @@
+.is-focused > .mdl-textfield__input{
+    border-bottom: none !important;
+}
+
+.mdl-layout__drawer > .mdl-layout-title{
+    background-color: #00acc1;
+}

@@ -1,0 +1,70 @@
+<div class="mdl-cell mdl-cell--12-col">
+  <p id="notice"><%= notice %></p>
+  <h3><%= @student.first_name %> <%= @student.last_name %></h3>
+</div>
+<div class="mdl-cell mdl-cell--4-col">
+  <div class="demo-card-square mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title mdl-card--expand mdl-card--border">
+      <h2 class="mdl-card__title-text">
+        PERSONAL INFO.
+      </h2>
+    </div>
+    <div class="mdl-card__supporting-text ">
+      <strong>Father name:</strong> <%= @student.father_name %> <br/>
+      <strong>Father occupation:</strong> <%= @student.father_occupation %><br/>
+      <strong>Mother name:</strong> <%= @student.mother_name %><br/>
+      <strong>Address:</strong> <%= @student.address %><br/>
+      <strong>Mobile no:</strong> <%= @student.mobile_no %><br/>
+      <strong>Date of birth:</strong> <%= @student.date_of_birth %><br/>
+      <strong>College name:</strong> <%= @student.college_name %><br/>
+      <strong>Student class:</strong> <%= @student.student_class %><br/>
+      <strong>Admission date:</strong> <%= @student.admission_date %><br/>
+      <strong>Division:</strong> <%= @student.division %>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+      <%= link_to 'Edit', edit_student_path(@student), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+      <%= link_to 'Back', :back, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent' %>
+    </div>
+  </div>
+</div>
+
+<div class="mdl-cell mdl-cell--8-col">
+  <h4>
+    PAYMENT INFO.
+  </h4>
+  <div style="overflow: auto">
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+      <thead>
+      <tr>
+        <th>Payment date</th>
+        <th>Installment no</th>
+        <th>Amount</th>
+        <th>Payment method</th>
+        <th>Payment desc</th>
+        <th>Paid by</th>
+        <th>Received by</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% if @student.student_fees.all.blank? %>
+        <tr>
+          <td colspan="7" class="mdl-data-table__cell--non-numeric">NOTHING TO SHOW</td>
+        </tr>
+      <% else %>
+        <% @student.student_fees.each do |student_fee| %>
+            <tr>
+              <td><%= student_fee.payment_date %></td>
+              <td><%= student_fee.installment_no %></td>
+              <td><%= student_fee.amount %></td>
+              <td><%= student_fee.payment_method %></td>
+              <td><%= student_fee.payment_desc %></td>
+              <td><%= student_fee.paid_by %></td>
+              <td><%= student_fee.received_by %></td>
+            </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

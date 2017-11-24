@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @student_fee.student_id %>
+</p>
+
+<p>
+  <strong>Payment date:</strong>
+  <%= @student_fee.payment_date %>
+</p>
+
+<p>
+  <strong>Installment no:</strong>
+  <%= @student_fee.installment_no %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @student_fee.amount %>
+</p>
+
+<p>
+  <strong>Payment method:</strong>
+  <%= @student_fee.payment_method %>
+</p>
+
+<p>
+  <strong>Payment desc:</strong>
+  <%= @student_fee.payment_desc %>
+</p>
+
+<p>
+  <strong>Paid by:</strong>
+  <%= @student_fee.paid_by %>
+</p>
+
+<p>
+  <strong>Received by:</strong>
+  <%= @student_fee.received_by %>
+</p>
+
+<%= link_to 'Edit', edit_student_fee_path(@student_fee) %> |
+<%= link_to 'Back', :back %>

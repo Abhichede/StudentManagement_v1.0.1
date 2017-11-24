@@ -1,0 +1,12 @@
+<%
+  if @allocated_fee.blank?
+%>
+  alert('Fee is not allocated for these class/section');
+<%
+  else
+%>
+  $('input#allocated_fee').val(<%= @allocated_fee.allocated_fee %>);
+  $('div#allocated_fee_div').addClass('is-dirty');
+<%
+  end
+ %>

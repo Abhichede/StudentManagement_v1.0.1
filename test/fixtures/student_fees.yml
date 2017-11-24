@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: 1
+  payment_date: MyString
+  installment_no: MyString
+  amount: MyString
+  payment_method: MyString
+  payment_desc: MyString
+  paid_by: MyString
+  received_by: MyString
+
+two:
+  student_id: 1
+  payment_date: MyString
+  installment_no: MyString
+  amount: MyString
+  payment_method: MyString
+  payment_desc: MyString
+  paid_by: MyString
+  received_by: MyString

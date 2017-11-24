@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Class:</strong>
+  <%= @fee_structure.class %>
+</p>
+
+<p>
+  <strong>Section:</strong>
+  <%= @fee_structure.section %>
+</p>
+
+<p>
+  <strong>Allocated fee:</strong>
+  <%= @fee_structure.allocated_fee %>
+</p>
+
+<%= link_to 'Edit', edit_fee_structure_path(@fee_structure) %> |
+<%= link_to 'Back', fee_structures_path %>

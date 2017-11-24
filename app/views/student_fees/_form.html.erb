@@ -1,0 +1,68 @@
+<%= form_for(student_fee) do |f| %>
+  <% if student_fee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(student_fee.errors.count, "error") %> prohibited this student_fee from being saved:</h2>
+
+      <ul>
+      <% student_fee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%
+    student_names = ['Select Student']
+    @students.each do |student|
+      student_names.push([student.first_name.upcase + ' ' + student.last_name.upcase, student.id])
+    end %>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+    <%= f.select(:student_id, options_for_select(student_names, :disabled => 'Select Student', :selected=> @student_fee.student_id),
+                 {}, class: 'mdl-textfield__input', id: 'student_select') %>
+    <%= f.label 'Student Name', class: 'mdl-textfield__label', for: 'student_select' %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="payment_date_div">
+    <%= f.label :payment_date, class: 'mdl-textfield__label' %>
+    <%= f.text_field :payment_date, class: 'mdl-textfield__input', id: 'payment_date' %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.label :installment_no, class: 'mdl-textfield__label', for: 'installment_no' %>
+    <%= f.select(:installment_no, options_for_select([['Installments'],['1 st','1 st'],['2 nd','2 nd'],['3 rd','3 rd'],['4 th','4 th'],['5 th','5 th'],['6 th','6 th']],
+                                                     :disabled => 'Installments', :selected=> @student_fee.installment_no),
+                 {}, class: 'mdl-textfield__input', id: 'installment_no') %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.label :amount, class: 'mdl-textfield__label' %>
+    <%= f.text_field :amount, class: 'mdl-textfield__input' %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+    <%= f.select(:payment_method, options_for_select([['Payment Method'],['CASH','CASH'],['Cheque','Cheque'],['Bank Transfer','Bank Transfer'],['NEFT / IMPS / RTGS','NEFT / IMPS / RTGS']],
+                                                     :disabled => 'Payment Method', :selected=> @student_fee.payment_method),
+                 {}, class: 'mdl-textfield__input', id: 'payment_method') %>
+    <%= f.label :payment_method, class: 'mdl-textfield__label', for: 'payment_method' %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.label :payment_desc, class: 'mdl-textfield__label' %>
+    <%= f.text_field :payment_desc, class: 'mdl-textfield__input' %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.label :paid_by, class: 'mdl-textfield__label' %>
+    <%= f.text_field :paid_by, class: 'mdl-textfield__input' %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.label :received_by, class: 'mdl-textfield__label' %>
+    <%= f.text_field :received_by, class: 'mdl-textfield__input' %>
+  </div>
+
+    <div class="mdl-grid">
+      <div class="actions mdl-cell mdl-cell--1-col">
+        <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+      </div>
+<% end %>

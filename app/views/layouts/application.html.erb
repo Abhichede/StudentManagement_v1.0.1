@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>StudentManagementV101</title>
+    <%= csrf_meta_tags %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+
+  </head>
+
+  <body>
+
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title"><%= ClassInfo.first.class_name.upcase %></span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Expandable Textfield -->
+          <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+              <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+                <i class="material-icons">search</i>
+              </label>
+              <div class="mdl-textfield__expandable-holder">
+                <input class="mdl-textfield__input" type="text" id="sample6">
+                <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+              </div>
+            </div>
+          </form>
+          <!-- Right aligned menu below button -->
+          <button id="demo-menu-lower-right"
+                  class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+          </button>
+
+          <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+              for="demo-menu-lower-right">
+            <li class="mdl-menu__item">Some Action</li>
+            <li class="mdl-menu__item">Another Action</li>
+            <li disabled class="mdl-menu__item">Disabled Action</li>
+            <li class="mdl-menu__item">Yet Another Action</li>
+          </ul>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title"><%= ClassInfo.first.class_name.upcase %></span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="<%= students_path %>">Students</a>
+          <a class="mdl-navigation__link" href="<%= student_fees_path %>">Fee Collection</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <!-- Your content goes here -->
+          <div class="mdl-grid">
+            <%= yield %>
+          </div>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer" style="padding-top: 5px !important; padding-bottom: 10px !important;">
+        <div class="mdl-mini-footer__left-section">
+          <div class="mdl-logo">&copy; <%= ClassInfo.first.class_name.upcase %></div>
+        </div>
+        <div class="mdl-mini-footer__right-section">
+          <div class="mdl-logo">POWERED BY LINKER IT SOLUTIONS</div>
+        </div>
+      </footer>
+    </div>
+
+  </body>
+</html>

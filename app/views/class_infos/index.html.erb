@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Class Infos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class name</th>
+      <th>Address</th>
+      <th>Contact no</th>
+      <th>Available classes</th>
+      <th>Subjects</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @class_infos.each do |class_info| %>
+      <tr>
+        <td><%= class_info.class_name %></td>
+        <td><%= class_info.address %></td>
+        <td><%= class_info.contact_no %></td>
+        <td><%= class_info.available_classes %></td>
+        <td><%= class_info.subjects %></td>
+        <td><%= link_to 'Show', class_info %></td>
+        <td><%= link_to 'Edit', edit_class_info_path(class_info) %></td>
+        <td><%= link_to 'Destroy', class_info, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Class Info', new_class_info_path %>

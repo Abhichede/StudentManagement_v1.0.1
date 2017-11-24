@@ -1,0 +1,32 @@
+<%= form_for(fee_structure) do |f| %>
+  <% if fee_structure.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(fee_structure.errors.count, "error") %> prohibited this fee_structure from being saved:</h2>
+
+      <ul>
+      <% fee_structure.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :student_class %>
+    <%= f.text_field :class %>
+  </div>
+
+  <div class="field">
+    <%= f.label :section %>
+    <%= f.text_field :section %>
+  </div>
+
+  <div class="field">
+    <%= f.label :allocated_fee %>
+    <%= f.text_field :allocated_fee %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
