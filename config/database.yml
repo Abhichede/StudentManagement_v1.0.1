@@ -44,11 +44,11 @@ test:
 #
 # You can use this database configuration with:
 #
-#   production:
-#     url: <%= ENV['DATABASE_URL'] %>
+   production:
+     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: StudentManagement_v1_0_1_production
-  username: StudentManagement_v1_0_1
-  password: <%= ENV['STUDENTMANAGEMENT_V1_0_1_DATABASE_PASSWORD'] %>
+#production:
+#  <<: *default
+#  database: StudentManagement_v1_0_1_production
+#  username: StudentManagement_v1_0_1
+#  password: <%= ENV['STUDENTMANAGEMENT_V1_0_1_DATABASE_PASSWORD'] %>
