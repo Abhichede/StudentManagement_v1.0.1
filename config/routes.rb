@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   root 'students#index'
 
   get 'get_allocated_fee', to: 'students#update_allocated_fee'
+  get 'update_discount', to: 'students#update_discount'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

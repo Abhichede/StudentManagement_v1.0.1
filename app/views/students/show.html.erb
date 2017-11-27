@@ -29,12 +29,16 @@
 </div>
 
 <div class="mdl-cell mdl-cell--8-col">
-  <div class="mdl-cell mdl-cell--12-col">
-    <h4 style="padding-right: 5rem">
-      PAYMENT INFO.
-      <%= link_to 'Pay Fee', {controller: 'student_fees', action: 'new', student_id: @student.id}, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent', style: 'float: right;' %>
-
-    </h4>
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+      <h4>PAYMENT INFO.</h4>
+    </div>
+    <div class="mdl-cell mdl-cell--3-col">
+      <%= link_to 'Pay Fee', {controller: 'student_fees', action: 'new', student_id: @student.id}, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored', style: 'float: right;' %>
+    </div>
+    <div class="mdl-cell mdl-cell--3-col">
+      <button id="show-dialog" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Add Discount</button>
+    </div>
   </div>
   <div class="mdl-cell mdl-cell--12-col">
     <div style="overflow: auto">
@@ -96,3 +100,34 @@
     </table>
   </div>
 </div>
+
+<dialog class="mdl-dialog">
+  <h5 class="mdl-dialog__title">Enter Discount</h5>
+  <form action="<%= update_discount_path %>" data-remote="true">
+    <div class="mdl-dialog__content">
+      <input type="hidden" name="id" value="<%= @student.id %>">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="allocated_fee_div">
+        <input type="text" name="discount" id="discount" class="mdl-textfield__input" pattern="[0-9]+(\.[0-9][0-9]?)?">
+        <label for="discount" class="mdl-textfield__label">Discount</label>
+        <span class="mdl-textfield__error">Only decimal numbers with precision of 2 are allowed</span>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button type="submit" class="mdl-button">Save</button>
+        <button type="button" class="mdl-button close">Close</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+<script>
+    var dialog = document.querySelector('dialog');
+    var showDialogButton = document.querySelector('#show-dialog');
+    if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    showDialogButton.addEventListener('click', function() {
+        dialog.showModal();
+    });
+    dialog.querySelector('.close').addEventListener('click', function() {
+        dialog.close();
+    });
+</script>

@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :update_discount]
 
   # GET /students
   # GET /students.json
@@ -89,6 +89,17 @@ class StudentsController < ApplicationController
       if !@allocated_fee.blank?
         format.js {}
       else
+        format.js {}
+      end
+    end
+  end
+
+  def update_discount
+    respond_to do |format|
+      if params[:discount].blank?
+        format.js {}
+      else
+        @student.update(:discount => params[:discount])
         format.js {}
       end
     end
