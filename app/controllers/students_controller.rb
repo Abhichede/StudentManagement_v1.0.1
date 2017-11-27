@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     if !params[:query].nil?
-      @students = Student.where("first_name LIKE ? OR last_name LIKE ? OR college_name LIKE ? OR student_class LIKE ? OR division LIKE ? ", "%#{params[:query]}%",
+      @students = Student.where("lower(first_name) LIKE lower(?) OR lower(last_name) LIKE lower(?) OR lower(college_name) LIKE lower(?) OR lower(student_class) LIKE lower(?) OR lower(division) LIKE (?) ", "%#{params[:query]}%",
                                 "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%",
                                 "%#{params[:query]}%")
     else

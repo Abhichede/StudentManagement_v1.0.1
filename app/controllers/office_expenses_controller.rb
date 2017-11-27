@@ -5,7 +5,7 @@ class OfficeExpensesController < ApplicationController
   # GET /office_expenses.json
   def index
     if !params[:query].nil?
-      @office_expenses = OfficeExpense.where("expense_type LIKE ? OR description LIKE ?", "%#{params[:query]}%",
+      @office_expenses = OfficeExpense.where("lower(expense_type) LIKE lower(?) OR lower(description) LIKE lower(?)", "%#{params[:query]}%",
                                 "%#{params[:query]}%")
     else
       @office_expenses = OfficeExpense.all
