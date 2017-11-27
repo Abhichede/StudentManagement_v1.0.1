@@ -12,11 +12,11 @@
   <% end %>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
     <% if !params[:student_id].nil? %>
-      <%= f.text_field :payment_date, class: 'mdl-textfield__input', id: 'student_select', value: @student.first_name + ' ' + @student.last_name, readonly: true %>
-      <%= f.label 'Student Name', class: 'mdl-textfield__label', for: 'student_select' %>
+      <%= f.text_field :student_id, class: 'mdl-textfield__input', id: 'student_select', value: params[:student_id], readonly: true %>
+      <%= f.label @student.first_name+ ' '+ @student.last_name, class: 'mdl-textfield__label', for: 'student_select' %>
     <% else %>
-      <%= f.text_field :payment_date, class: 'mdl-textfield__input', id: 'student_select', readonly: true %>
-      <%= f.label 'Student Name', class: 'mdl-textfield__label', for: 'student_select' %>
+      <%= f.text_field :student_id, class: 'mdl-textfield__input', id: 'student_select', readonly: true %>
+      <%= f.label Student.find(params[:student_id]).first_name + ' ' + Student.find(params[:student_id]).last_name, class: 'mdl-textfield__label', for: 'student_select' %>
     <% end %>
   </div>
 
@@ -36,10 +36,10 @@
 
       %>
       <%= f.label :installment_no, class: 'mdl-textfield__label', for: 'installment_no' %>
-      <%= f.text_field :payment_date, class: 'mdl-textfield__input', id: 'installment_no', readonly: true, value: last_val %>
+      <%= f.text_field :installment_no, class: 'mdl-textfield__input', id: 'installment_no', readonly: true, value: last_val %>
     <% else %>
       <%= f.label :installment_no, class: 'mdl-textfield__label', for: 'installment_no' %>
-      <%= f.text_field :payment_date, class: 'mdl-textfield__input', id: 'installment_no', readonly: true %>
+      <%= f.text_field :installment_no, class: 'mdl-textfield__input', id: 'installment_no', readonly: true %>
     <% end %>
 
   </div>
