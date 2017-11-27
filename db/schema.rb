@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126075751) do
+ActiveRecord::Schema.define(version: 20171127070040) do
 
   create_table "class_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "class_name"
@@ -22,12 +22,30 @@ ActiveRecord::Schema.define(version: 20171126075751) do
     t.datetime "updated_at",        null: false
   end
 
+  create_table "expense_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "expense_type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "fee_structures", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "student_class", null: false
     t.string   "section",       null: false
     t.string   "allocated_fee", null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "office_expenses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "expense_type"
+    t.string   "description"
+    t.string   "amount"
+    t.string   "payment_method"
+    t.string   "payment_descrition"
+    t.string   "paid_by"
+    t.string   "received_by"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "student_fees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

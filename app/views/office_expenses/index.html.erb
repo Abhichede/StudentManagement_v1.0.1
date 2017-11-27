@@ -1,0 +1,100 @@
+<div class="mdl-cell--12-col">
+  <p id="notice"><%= notice %></p>
+</div>
+<div class="mdl-cell--12-col mdl-typography--text-center">
+  <h3>Office Expenses</h3>
+</div>
+<div class="mdl-cell--1-col">
+  <div class="mdl-layout-spacer"></div>
+</div>
+<%
+  total_expense = 0
+
+  if !@office_expenses.blank?
+    @office_expenses.each do |expense|
+      total_expense += expense.amount.to_f.round(2)
+    end
+  end
+%>
+<div class="mdl-cell--11-col" style="height: 32rem !important; overflow: auto !important;">
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+      <tr>
+        <th>
+          <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+            <tr>
+              <th>Total Expense</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric" colspan="2">&#8377; <%= number_to_indian_currency(total_expense) %></td>
+            </tr>
+            </tbody>
+          </table>
+        </th>
+        <form action="<%= office_expenses_path %>" method="get">
+          <th colspan="2">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="filter_by_query" name="query">
+              <label class="mdl-textfield__label" for="filter_by_query">Search</label>
+            </div>
+          </th>
+          <th colspan="1">
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Search</button>
+          </th>
+        </form>
+        <th colspan="2">
+          <%= link_to 'New Office Expense', new_office_expense_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+        </th>
+        <th colspan="2">
+          <%= link_to "Export to Excel", office_expenses_path(format: "xls"), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+        </th>
+      </tr>
+      <tr>
+        <th>Expense type</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Payment method</th>
+        <th>Payment descrition</th>
+        <th>Paid by</th>
+        <th>Received by</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @office_expenses.each do |office_expense| %>
+        <tr>
+          <td><%= office_expense.expense_type %></td>
+          <td><%= office_expense.description %></td>
+          <td><%= office_expense.amount %></td>
+          <td><%= office_expense.payment_method %></td>
+          <td><%= office_expense.payment_descrition %></td>
+          <td><%= office_expense.paid_by %></td>
+          <td><%= office_expense.received_by %></td>
+          <td>
+            <%= link_to edit_office_expense_path(office_expense),
+                        class: 'mdl-button mdl-js-button mdl-button--icon' do %>
+                <i class="material-icons" id='tt_edit_<%= office_expense.id %>' >mode_edit</i>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to office_expense, method: :delete, data: { confirm: 'Are you sure?' },
+                        class: 'mdl-button mdl-js-button mdl-button--icon' do %>
+                <i class="material-icons" id='tt_delete_<%= office_expense.id %>'>delete</i>
+            <% end %>
+          </td>
+        </tr>
+        <div class="mdl-tooltip" data-mdl-for="tt_edit_<%= office_expense.id %>">
+          <strong>Edit</strong>
+        </div>
+        <div class="mdl-tooltip" data-mdl-for="tt_delete_<%= office_expense.id %>">
+          <strong>Delete</strong>
+        </div>
+      <% end %>
+    </tbody>
+  </table>
+</div>

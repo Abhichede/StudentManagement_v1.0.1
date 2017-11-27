@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  expense_type: MyString
+  description: MyString
+  amount: MyString
+  payment_method: MyString
+  payment_descrition: MyString
+  paid_by: MyString
+  received_by: MyString
+
+two:
+  expense_type: MyString
+  description: MyString
+  amount: MyString
+  payment_method: MyString
+  payment_descrition: MyString
+  paid_by: MyString
+  received_by: MyString

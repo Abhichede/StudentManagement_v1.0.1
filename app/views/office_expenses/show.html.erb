@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Expense type:</strong>
+  <%= @office_expense.expense_type %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @office_expense.description %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @office_expense.amount %>
+</p>
+
+<p>
+  <strong>Payment method:</strong>
+  <%= @office_expense.payment_method %>
+</p>
+
+<p>
+  <strong>Payment descrition:</strong>
+  <%= @office_expense.payment_descrition %>
+</p>
+
+<p>
+  <strong>Paid by:</strong>
+  <%= @office_expense.paid_by %>
+</p>
+
+<p>
+  <strong>Received by:</strong>
+  <%= @office_expense.received_by %>
+</p>
+
+<%= link_to 'Edit', edit_office_expense_path(@office_expense) %> |
+<%= link_to 'Back', office_expenses_path %>

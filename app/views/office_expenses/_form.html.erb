@@ -1,0 +1,70 @@
+<%= form_for(office_expense) do |f| %>
+  <% if office_expense.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(office_expense.errors.count, "error") %> prohibited this office_expense from being saved:</h2>
+
+      <ul>
+      <% office_expense.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="expense_type_div">
+    <%= f.text_field :expense_type, class: 'mdl-textfield__input', id: 'expense_type' %>
+    <%= f.label :expense_type, class: 'mdl-textfield__label', for: 'expense_type' %>
+    <ul for="expense_type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" id="expense_type_list">
+      <% if !@expense_types.blank? %>
+        <% @expense_types.each do |types| %>
+          <li class="mdl-menu__item" onclick="addListVal(this.innerHTML);"><%= types.expense_type %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.text_field :description, class: 'mdl-textfield__input' %>
+    <%= f.label :description, class: 'mdl-textfield__label' %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.text_field :amount, class: 'mdl-textfield__input' %>
+    <%= f.label :amount, class: 'mdl-textfield__label' %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+   <%= f.select(:payment_method, options_for_select([['Payment Method'],['CASH','CASH'],['Cheque','Cheque'],['Bank Transfer','Bank Transfer'],['NEFT / IMPS / RTGS','NEFT / IMPS / RTGS']],
+                                                     :disabled => 'Payment Method', :selected=> @office_expense.payment_method),
+                 {}, class: 'mdl-textfield__input', id: 'payment_method', onchange: 'this.nextElementSibling.value=this.value') %>
+    <%= f.label :payment_method, class: 'mdl-textfield__label', for: 'payment_method' %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.text_field :payment_descrition, class: 'mdl-textfield__input' %>
+    <%= f.label :payment_descrition, class: 'mdl-textfield__label' %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.text_field :paid_by, class: 'mdl-textfield__input' %>
+    <%= f.label :paid_by, class: 'mdl-textfield__label' %>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <%= f.text_field :received_by, class: 'mdl-textfield__input' %>
+    <%= f.label :received_by, class: 'mdl-textfield__label' %>
+  </div>
+
+  <div class="mdl-grid">
+    <div class="actions mdl-cell mdl-cell--1-col">
+      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+    </div>
+<% end %>
+
+<script type="text/javascript">
+  var addListVal = function (value) {
+      console.log(value);
+      $('input#expense_type').val(value);
+      $('#expense_type_div').addClass('is-dirty')
+  };
+</script>

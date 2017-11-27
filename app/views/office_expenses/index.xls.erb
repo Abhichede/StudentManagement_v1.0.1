@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Date</Data></Cell>
+        <Cell><Data ss:Type="String">Expense Type</Data></Cell>
+        <Cell><Data ss:Type="String">Description</Data></Cell>
+        <Cell><Data ss:Type="String">Amount</Data></Cell>
+        <Cell><Data ss:Type="String">Payment Method</Data></Cell>
+        <Cell><Data ss:Type="String">Payment Description</Data></Cell>
+      </Row>
+      <%
+        total_expense = 0
+
+        if !@office_expenses.blank?
+          @office_expenses.each do |fee|
+            total_expense += fee.amount.to_f.round(2)
+          end
+        end
+      %>
+      <% @office_expenses.each do |fee| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= fee.created_at %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.expense_type %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.description %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.amount %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.payment_method %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.payment_descrition %></Data></Cell>
+          </Row>
+      <% end %>
+      <Row>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">Total Expense</Data></Cell>
+      </Row>
+
+      <Row>
+        <Cell><Data ss:Type="String"><%= total_expense %></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>

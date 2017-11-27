@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :office_expenses
   resources :fee_structures
   resources :student_fees
   resources :class_infos
