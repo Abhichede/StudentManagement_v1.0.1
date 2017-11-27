@@ -24,7 +24,7 @@
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <!-- Title -->
-          <span class="mdl-layout-title"><%= ClassInfo.first.class_name.upcase %></span>
+          <span class="mdl-layout-title"><%= link_to ClassInfo.first.class_name.upcase, root_path, style: 'color: white' %></span>
           <!-- Add spacer, to align navigation to the right -->
           <div class="mdl-layout-spacer"></div>
           <!-- Expandable Textfield -->
@@ -59,6 +59,7 @@
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" href="<%= students_path %>">Students</a>
           <a class="mdl-navigation__link" href="<%= student_fees_path %>">Fee Collection</a>
+          <a class="mdl-navigation__link" href="<%= fee_structures_path %>">Fee Structure</a>
         </nav>
       </div>
       <main class="mdl-layout__content">

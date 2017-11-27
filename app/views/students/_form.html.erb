@@ -120,7 +120,9 @@
       <%
         avl_classes  = ['Class']
         @fee_structure.each do |fee_structure|
-          avl_classes.push([fee_structure.student_class,fee_structure.student_class])
+          if !avl_classes.include?(fee_structure.student_class)
+            avl_classes.push(fee_structure.student_class)
+          end
         end
       %>
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -163,6 +165,8 @@
         <%= f.label :admission_date, class: 'mdl-textfield__label' %>
       </div>
     </div>
+
+
     <div class="mdl-cell--1-col">
       <div class="mdl-layout-spacer"></div>
     </div>
@@ -174,7 +178,7 @@
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="allocated_fee_div">
         <%= f.text_field :allocated_fee, class: 'mdl-textfield__input',
                          pattern: '[0-9]+(\.[0-9][0-9]?)?',
-                         id: 'allocated_fee', disabled: true, required: true  %>
+                         id: 'allocated_fee', readonly: true %>
         <%= f.label :allocated_fee, class: 'mdl-textfield__label' %>
         <span class="mdl-textfield__error">Only decimal numbers with precision of 2 are allowed</span>
       </div>
@@ -192,6 +196,18 @@
     </div>
     <div class="mdl-cell--1-col">
       <div class="mdl-layout-spacer"></div>
+    </div>
+    <div class="mdl-cell--2-col">
+      <div class="mdl-layout-spacer"></div>
+    </div>
+    <div class="mdl-cell--4-col">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="allocated_fee_div">
+        <%= f.text_field :discount, class: 'mdl-textfield__input',
+                         pattern: '[0-9]+(\.[0-9][0-9]?)?',
+                         id: 'discount' %>
+        <%= f.label :discount, class: 'mdl-textfield__label', for: 'discount' %>
+        <span class="mdl-textfield__error">Only decimal numbers with precision of 2 are allowed</span>
+      </div>
     </div>
   </div>
   <div class="mdl-grid">

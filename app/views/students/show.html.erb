@@ -29,41 +29,69 @@
 </div>
 
 <div class="mdl-cell mdl-cell--8-col">
-  <h4>
-    PAYMENT INFO.
-  </h4>
-  <div style="overflow: auto">
-    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-      <thead>
-      <tr>
-        <th>Payment date</th>
-        <th>Installment no</th>
-        <th>Amount</th>
-        <th>Payment method</th>
-        <th>Payment desc</th>
-        <th>Paid by</th>
-        <th>Received by</th>
-      </tr>
-      </thead>
+  <div class="mdl-cell mdl-cell--12-col">
+    <h4 style="padding-right: 5rem">
+      PAYMENT INFO.
+      <%= link_to 'Pay Fee', {controller: 'student_fees', action: 'new', student_id: @student.id}, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent', style: 'float: right;' %>
 
-      <tbody>
-      <% if @student.student_fees.all.blank? %>
-        <tr>
-          <td colspan="7" class="mdl-data-table__cell--non-numeric">NOTHING TO SHOW</td>
-        </tr>
-      <% else %>
-        <% @student.student_fees.each do |student_fee| %>
+    </h4>
+  </div>
+  <div class="mdl-cell mdl-cell--12-col">
+    <div style="overflow: auto">
+      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <thead>
+          <tr>
+            <th>Payment date</th>
+            <th>Installment no</th>
+            <th>Amount</th>
+            <th>Payment method</th>
+            <th>Payment desc</th>
+            <th>Paid by</th>
+            <th>Received by</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% if @student.student_fees.all.blank? %>
             <tr>
-              <td><%= student_fee.payment_date %></td>
-              <td><%= student_fee.installment_no %></td>
-              <td><%= student_fee.amount %></td>
-              <td><%= student_fee.payment_method %></td>
-              <td><%= student_fee.payment_desc %></td>
-              <td><%= student_fee.paid_by %></td>
-              <td><%= student_fee.received_by %></td>
+              <td colspan="7" class="mdl-data-table__cell--non-numeric">NOTHING TO SHOW</td>
             </tr>
-        <% end %>
-      <% end %>
+          <% else %>
+            <% @student.student_fees.each do |student_fee| %>
+                <tr>
+                  <td><%= student_fee.payment_date %></td>
+                  <td><%= student_fee.installment_no %></td>
+                  <td>&#8377; <%= number_to_indian_currency(student_fee.amount.to_f.round(2)) %></td>
+                  <td><%= student_fee.payment_method %></td>
+                  <td><%= student_fee.payment_desc %></td>
+                  <td><%= student_fee.paid_by %></td>
+                  <td><%= student_fee.received_by %></td>
+                </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="mdl-cell--10-col">
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="float: right !important;">
+      <tbody>
+        <tr>
+          <th>Allocated Fee</th>
+          <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(@student.allocated_fee.to_f.round(2)) %></td>
+        </tr>
+        <tr>
+          <th>Discount</th>
+          <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(@student.discount.to_f.round(2)) %></td>
+        </tr>
+        <tr>
+          <th>Paid Fee</th>
+          <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(@student.total_paid.to_f.round(2)) %></td>
+        </tr>
+        <tr>
+          <th>Balance Fee</th>
+          <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency((@student.allocated_fee.to_f.round(2) - @student.discount.to_f.round(2)) - @student.total_paid.to_f.round(2)) %></td>
+        </tr>
       </tbody>
     </table>
   </div>

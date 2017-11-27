@@ -4,7 +4,13 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    if !params[:query].nil?
+      @students = Student.where("first_name LIKE ? OR last_name LIKE ? OR college_name LIKE ? OR student_class LIKE ? OR division LIKE ? ", "%#{params[:query]}%",
+                                "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%",
+                                "%#{params[:query]}%")
+    else
+      @students = Student.all
+    end
   end
 
   # GET /students/1
@@ -45,7 +51,6 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1.json
   def update
     respond_to do |format|
-      puts student_params[:admission_date]
       if @student.update(student_params)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
@@ -59,8 +64,13 @@ class StudentsController < ApplicationController
   # DELETE /students/1
   # DELETE /students/1.json
   def destroy
+    @student.student_fees.each do |fee|
+      fee.destroy
+    end
     @student.destroy
+    
     respond_to do |format|
+
       format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -92,6 +102,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:first_name, :last_name, :father_name, :father_occupation, :mother_name, :address, :mobile_no, :date_of_birth, :college_name, :student_class, :admission_date, :division, :allocated_fee, :balance_amount, :no_of_installments)
+      params.require(:student).permit(:first_name, :last_name, :father_name, :father_occupation, :mother_name, :address, :mobile_no, :date_of_birth, :college_name, :student_class, :admission_date, :division, :allocated_fee, :total_paid, :no_of_installments, :discount)
     end
 end

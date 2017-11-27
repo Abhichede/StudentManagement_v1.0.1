@@ -10,16 +10,14 @@
       </ul>
     </div>
   <% end %>
-
-  <%
-    student_names = ['Select Student']
-    @students.each do |student|
-      student_names.push([student.first_name.upcase + ' ' + student.last_name.upcase, student.id])
-    end %>
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-    <%= f.select(:student_id, options_for_select(student_names, :disabled => 'Select Student', :selected=> @student_fee.student_id),
-                 {}, class: 'mdl-textfield__input', id: 'student_select') %>
-    <%= f.label 'Student Name', class: 'mdl-textfield__label', for: 'student_select' %>
+    <% if !params[:student_id].nil? %>
+      <%= f.text_field :payment_date, class: 'mdl-textfield__input', id: 'student_select', value: @student.first_name + ' ' + @student.last_name, readonly: true %>
+      <%= f.label 'Student Name', class: 'mdl-textfield__label', for: 'student_select' %>
+    <% else %>
+      <%= f.text_field :payment_date, class: 'mdl-textfield__input', id: 'student_select', readonly: true %>
+      <%= f.label 'Student Name', class: 'mdl-textfield__label', for: 'student_select' %>
+    <% end %>
   </div>
 
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="payment_date_div">
@@ -28,10 +26,22 @@
   </div>
 
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <%= f.label :installment_no, class: 'mdl-textfield__label', for: 'installment_no' %>
-    <%= f.select(:installment_no, options_for_select([['Installments'],['1 st','1 st'],['2 nd','2 nd'],['3 rd','3 rd'],['4 th','4 th'],['5 th','5 th'],['6 th','6 th']],
-                                                     :disabled => 'Installments', :selected=> @student_fee.installment_no),
-                 {}, class: 'mdl-textfield__input', id: 'installment_no') %>
+    <% if !params[:student_id].nil? %>
+      <%
+        if @student.student_fees.blank?
+          last_val = 1
+        else
+          last_val = @student.student_fees.last.installment_no.to_i + 1
+        end
+
+      %>
+      <%= f.label :installment_no, class: 'mdl-textfield__label', for: 'installment_no' %>
+      <%= f.text_field :payment_date, class: 'mdl-textfield__input', id: 'installment_no', readonly: true, value: last_val %>
+    <% else %>
+      <%= f.label :installment_no, class: 'mdl-textfield__label', for: 'installment_no' %>
+      <%= f.text_field :payment_date, class: 'mdl-textfield__input', id: 'installment_no', readonly: true %>
+    <% end %>
+
   </div>
 
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

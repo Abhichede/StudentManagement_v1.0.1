@@ -43,7 +43,7 @@ class FeeStructuresController < ApplicationController
   def update
     respond_to do |format|
       if @fee_structure.update(fee_structure_params)
-        format.html { redirect_to @fee_structure, notice: 'Fee structure was successfully updated.' }
+        format.html { redirect_to fee_structures_path, notice: 'Fee structure was successfully updated.' }
         format.json { render :show, status: :ok, location: @fee_structure }
       else
         format.html { render :edit }

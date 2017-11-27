@@ -4,7 +4,16 @@ class StudentFeesController < ApplicationController
   # GET /student_fees
   # GET /student_fees.json
   def index
-    @student_fees = StudentFee.all
+    if params[:start_date].nil? || params[:end_date].nil?
+      @student_fees = StudentFee.all
+    else
+      @student_fees = StudentFee.where("payment_date BETWEEN ? AND ?", params[:start_date], params[:end_date])
+    end
+
+    respond_to do |format|
+      format.html
+      format.xls
+    end
   end
 
   # GET /student_fees/1
@@ -15,7 +24,7 @@ class StudentFeesController < ApplicationController
   # GET /student_fees/new
   def new
     @student_fee = StudentFee.new
-    @students = Student.all
+    @student = Student.find(params[:student_id])
   end
 
   # GET /student_fees/1/edit
@@ -27,14 +36,27 @@ class StudentFeesController < ApplicationController
   # POST /student_fees.json
   def create
     @student_fee = StudentFee.new(student_fee_params)
+    @student = Student.find(student_fee_params[:student_id])
+
+    allocated_fee = @student.allocated_fee.to_f
+    discount = @student.discount.to_f
+    paid_fee = @student.total_paid.to_f
+    balance_amount = (allocated_fee - discount) - paid_fee
+    currently_paying = student_fee_params[:amount].to_f
 
     respond_to do |format|
-      if @student_fee.save
-        format.html { redirect_to @student_fee, notice: 'Student fee was successfully created.' }
-        format.json { render :show, status: :created, location: @student_fee }
+      if balance_amount > 0 && currently_paying <= balance_amount
+        if @student_fee.save
+          @student.update(:total_paid => (paid_fee + currently_paying))
+          format.html { redirect_to student_fees_path, notice: 'Student fee was successfully created.' }
+          format.json { render :show, status: :created, location: @student_fees }
+        else
+          format.html { render :new }
+          format.json { render json: @student_fee.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :new }
-        format.json { render json: @student_fee.errors, status: :unprocessable_entity }
+        format.html { redirect_to student_fees_path, notice: 'Amount is greater than balance amount' }
+        format.json { render json: @student_fee.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -42,13 +64,25 @@ class StudentFeesController < ApplicationController
   # PATCH/PUT /student_fees/1
   # PATCH/PUT /student_fees/1.json
   def update
+    @student = Student.find(student_fee_params[:student_id])
+
+    currently_paying = student_fee_params[:amount].to_f
+    previous_amount = @student_fee.amount
+    allocated_fee = @student.allocated_fee.to_f
+    discount = @student.discount.to_f
+    paid_fee = @student.total_paid.to_f - previous_amount
+    balance_amount = (allocated_fee - discount) - paid_fee
+
     respond_to do |format|
-      if @student_fee.update(student_fee_params)
-        format.html { redirect_to @student_fee, notice: 'Student fee was successfully updated.' }
-        format.json { render :show, status: :ok, location: @student_fee }
-      else
-        format.html { render :edit }
-        format.json { render json: @student_fee.errors, status: :unprocessable_entity }
+      if balance_amount > 0 && currently_paying <= balance_amount
+        if @student_fee.update(student_fee_params)
+          @student.update(:total_paid => (paid_fee + currently_paying))
+          format.html { redirect_to student_fees_path, notice: 'Student fee was successfully updated.' }
+          format.json { render :show, status: :ok, location: @student_fees }
+        else
+          format.html { render :edit }
+          format.json { render json: @student_fee.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

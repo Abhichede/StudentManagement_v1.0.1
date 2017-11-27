@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Student Name</Data></Cell>
+        <Cell><Data ss:Type="String">Date</Data></Cell>
+        <Cell><Data ss:Type="String">Installment No.</Data></Cell>
+        <Cell><Data ss:Type="String">Amount</Data></Cell>
+        <Cell><Data ss:Type="String">Payment Method</Data></Cell>
+      </Row>
+      <%
+        total_allocated_fees = 0
+        total_discount = 0
+        total_paid_fees = 0
+
+        if !@student_fees.blank?
+          Student.all.each do |fee|
+            total_allocated_fees += fee.allocated_fee.to_f.round(2)
+            total_discount += fee.discount.to_f.round(2)
+            total_paid_fees += fee.total_paid.to_f.round(2)
+          end
+          total_balance_fee = (total_allocated_fees - total_discount) - total_paid_fees
+        end
+      %>
+      <% @student_fees.each do |fee| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= fee.student.first_name + ' ' + fee.student.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.payment_date %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.installment_no %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= fee.amount %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.payment_method %></Data></Cell>
+          </Row>
+      <% end %>
+      <Row>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">Total Fee</Data></Cell>
+        <Cell><Data ss:Type="String">Total Discount</Data></Cell>
+        <Cell><Data ss:Type="String">Total Paid</Data></Cell>
+        <Cell><Data ss:Type="String">Balance</Data></Cell>
+      </Row>
+
+      <Row>
+        <Cell><Data ss:Type="String"><%= total_allocated_fees %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= total_discount %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= total_paid_fees %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= total_balance_fee %></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>

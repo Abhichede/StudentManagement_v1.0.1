@@ -1,19 +1,37 @@
-<p id="notice"><%= notice %></p>
-<div class="mdl-cell--4-col">
-  <div class="mdl-layout-spacer"></div>
+<div class="mdl-cell--12-col">
+  <p id="notice"><%= notice %></p>
 </div>
-<div class="mdl-cell--4-col mdl-typography--text-center">
+<div class="mdl-cell--12-col mdl-typography--text-center">
   <h3>Student Fees</h3>
-</div>
-<div class="mdl-cell--3-col mdl-typography--text-center" style="padding-top: 20px !important;">
-  <%= link_to 'New Student Fee', new_student_fee_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
 </div>
 <div class="mdl-cell--1-col">
   <div class="mdl-layout-spacer"></div>
 </div>
-<div class="mdl-grid">
+<div class="mdl-cell--11-col" style="height: 32rem; overflow: auto">
   <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
     <thead>
+
+      <tr>
+        <form action="<%= student_fees_path %>">
+        <th colspan="2">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="payment_start_date_div">
+            <label for="payment_start_date" class="mdl-textfield__label">Start</label>
+            <input type="text" name="start_date" id="payment_start_date" class="mdl-textfield__input">
+          </div>
+        </th>
+        <th colspan="2">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="payment_end_date_div">
+            <label for="payment_end_date" class="mdl-textfield__label">End</label>
+            <input type="text" name="end_date" id="payment_end_date" class="mdl-textfield__input">
+          </div>
+        </th>
+        <th colspan="1">
+          <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Filter</button>
+
+        </th>
+        </form>
+        <th colspan="3"><%= link_to "Export to Excel", student_fees_path(format: "xls"), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %></th>
+      </tr>
       <tr>
         <th>Student</th>
         <th>Payment date</th>
@@ -23,6 +41,7 @@
         <th>Payment desc</th>
         <th>Paid by</th>
         <th>Received by</th>
+
       </tr>
     </thead>
 
@@ -41,4 +60,48 @@
       <% end %>
     </tbody>
   </table>
+</div>
+<div class="mdl-cell--3-col">
+  <div class="mdl-layout-spacer"></div>
+</div>
+<%
+  total_allocated_fees = 0
+  total_discount = 0
+  total_paid_fees = 0
+
+  if !@student_fees.blank?
+    Student.all.each do |fee|
+      total_allocated_fees += fee.allocated_fee.to_f.round(2)
+      total_discount += fee.discount.to_f.round(2)
+      total_paid_fees += fee.total_paid.to_f.round(2)
+    end
+    total_balance_fee = (total_allocated_fees - total_discount) - total_paid_fees
+  end
+%>
+<div class="mdl-cell--6-col" style="overflow: auto">
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+      <tr>
+        <th>Allocated Fee</th>
+        <th></th>
+        <th>Discount</th>
+        <th></th>
+        <th>Paid Fee</th>
+        <th></th>
+        <th>Balance Fee</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric" colspan="2">&#8377; <%= number_to_indian_currency(total_allocated_fees) %></td>
+        <td class="mdl-data-table__cell--non-numeric" colspan="2">&#8377; <%= number_to_indian_currency(total_discount) %></td>
+        <td class="mdl-data-table__cell--non-numeric" colspan="2">&#8377; <%= number_to_indian_currency(total_paid_fees) %></td>
+        <td class="mdl-data-table__cell--non-numeric" colspan="2">&#8377; <%= number_to_indian_currency(total_balance_fee) %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="mdl-cell--3-col">
+  <div class="mdl-layout-spacer"></div>
 </div>
