@@ -15,8 +15,8 @@
 }
 .select-editable select {
     position:absolute;
-    top:0px;
-    left:0px;
+    top:0;
+    left:0;
     font-size:14px;
     border:none;
     width:120px;
@@ -24,8 +24,8 @@
 }
 .select-editable input {
     position:absolute;
-    top:0px;
-    left:0px;
+    top:0;
+    left:0;
     width:100px;
     padding:1px;
     font-size:12px;
@@ -33,4 +33,21 @@
 }
 .select-editable select:focus, .select-editable input:focus {
     outline:none;
+}
+table > thead{
+    background-color: #46B6AC;
+}
+table > thead > tr > th{
+
+    color: #ffffff !important;
+}
+
+div.data-list{
+    line-height: normal;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+div.data-list > span{
+    float: right;
 }

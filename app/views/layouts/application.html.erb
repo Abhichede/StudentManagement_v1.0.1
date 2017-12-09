@@ -10,7 +10,8 @@
 
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css">
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.9/dialog-polyfill.min.css" integrity="sha256-qVjBFbunjrWQ4IikV5dkK1ziW9XKskisX1rUbCIJEhk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.9/dialog-polyfill.min.js" integrity="sha256-Niy7AJ0dDiIklf9lFp0ZX1gZsIBa8gQ/S241Wf5vXo4=" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
@@ -21,7 +22,7 @@
 
     <!-- Always shows a header, even in smaller screens. -->
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header">
+      <header class="mdl-layout__header ">
         <div class="mdl-layout__header-row">
           <!-- Title -->
           <span class="mdl-layout-title"><%= link_to ClassInfo.first.class_name.upcase, root_path, style: 'color: white' %></span>
@@ -55,6 +56,5 @@
         </div>
       </footer>
     </div>
-
   </body>
 </html>

@@ -20,47 +20,45 @@
   <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
     <thead>
       <tr>
-        <th>
-          <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <td class="mdl-data-table__cell--non-numeric">
+          <table class="mdl-data-table mdl-js-data-table" style="background-color: #46B6AC">
             <thead>
             <tr>
-              <th>Total Expense</th>
-              <th></th>
+              <td>Total Expense</td>
+            </tr>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(total_expense) %></td>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric" colspan="2">&#8377; <%= number_to_indian_currency(total_expense) %></td>
-            </tr>
-            </tbody>
           </table>
-        </th>
+        </td>
         <form action="<%= office_expenses_path %>" method="get">
-          <th colspan="2">
+          <td colspan="2">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" id="filter_by_query" name="query">
               <label class="mdl-textfield__label" for="filter_by_query">Search</label>
             </div>
-          </th>
-          <th colspan="1">
+          </td>
+          <td colspan="1">
             <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Search</button>
-          </th>
+          </td>
         </form>
-        <th colspan="2">
+        <td colspan="2">
           <%= link_to 'New Office Expense', new_office_expense_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
-        </th>
-        <th colspan="2">
-          <%= link_to "Export to Excel", office_expenses_path(format: "xls"), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
-        </th>
+        </td>
+        <td colspan="2">
+            <%= link_to "Export to Excel", office_expenses_path(format: "xls", query: params[:query]), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+        </td>
+        <td colspan="1"></td>
       </tr>
       <tr>
-        <th>Expense type</th>
-        <th>Description</th>
-        <th>Amount</th>
-        <th>Payment method</th>
-        <th>Payment descrition</th>
-        <th>Paid by</th>
-        <th>Received by</th>
+        <th class="mdl-data-table__cell--non-numeric">Expense type</th>
+        <th class="mdl-data-table__cell--non-numeric">Description</th>
+        <th class="mdl-data-table__cell--non-numeric">Amount</th>
+        <th class="mdl-data-table__cell--non-numeric">Payment method</th>
+        <th class="mdl-data-table__cell--non-numeric">Payment description</th>
+        <th class="mdl-data-table__cell--non-numeric">Paid by</th>
+        <th class="mdl-data-table__cell--non-numeric">Received by</th>
         <th colspan="2"></th>
       </tr>
     </thead>
@@ -68,13 +66,13 @@
     <tbody>
       <% @office_expenses.each do |office_expense| %>
         <tr>
-          <td><%= office_expense.expense_type %></td>
-          <td><%= office_expense.description %></td>
-          <td><%= office_expense.amount %></td>
-          <td><%= office_expense.payment_method %></td>
-          <td><%= office_expense.payment_descrition %></td>
-          <td><%= office_expense.paid_by %></td>
-          <td><%= office_expense.received_by %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= office_expense.expense_type %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= office_expense.description %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= office_expense.amount %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= office_expense.payment_method %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= office_expense.payment_descrition %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= office_expense.paid_by %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= office_expense.received_by %></td>
           <td>
             <%= link_to edit_office_expense_path(office_expense),
                         class: 'mdl-button mdl-js-button mdl-button--icon' do %>

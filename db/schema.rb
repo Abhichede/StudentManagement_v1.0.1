@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127070040) do
+ActiveRecord::Schema.define(version: 20171209081309) do
 
   create_table "class_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "class_name"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20171127070040) do
     t.string   "total_paid"
     t.string   "allocated_fee"
     t.string   "discount",                         default: "0"
+    t.string   "alternate_mobile",                 default: ""
   end
 
 end

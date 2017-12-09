@@ -13,9 +13,6 @@
   <% end %>
 
   <div class="mdl-grid">
-    <div class="mdl-cell--2-col">
-      <div class="mdl-layout-spacer"></div>
-    </div>
     <div class="mdl-cell--4-col">
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <%= f.text_field :first_name, class: 'mdl-textfield__input', required: true %>
@@ -86,18 +83,19 @@
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <%= f.text_field :mobile_no, class: 'mdl-textfield__input',
                          pattern: '^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$', required: true  %>
-        <%= f.label :mobile_no, class: 'mdl-textfield__label' %>
-        <span class="mdl-textfield__error">Only mobile number with 10 digits followed by (optional) country code</span>
+        <%= f.label :father_mobile_no, class: 'mdl-textfield__label' %>
+        <span class="mdl-textfield__error">Enter valid mobile</span>
       </div>
     </div>
       <div class="mdl-cell--1-col">
         <div class="mdl-layout-spacer"></div>
       </div>
     <div class="mdl-cell--4-col">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="student_date_of_birth_div">
-        <%= f.text_field :date_of_birth, id: 'student_date_of_birth',
-                         class: 'mdl-textfield__input', required: true  %>
-        <%= f.label :date_of_birth, class: 'mdl-textfield__label' %>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <%= f.text_field :alternate_mobile, class: 'mdl-textfield__input',
+                         pattern: '^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$'  %>
+        <%= f.label :alternate_mobile, class: 'mdl-textfield__label' %>
+        <span class="mdl-textfield__error">Enter valid mobile</span>
       </div>
     </div>
     <div class="mdl-cell--1-col">
@@ -107,65 +105,68 @@
     <div class="mdl-cell--2-col">
       <div class="mdl-layout-spacer"></div>
     </div>
-    <div class="mdl-cell--4-col">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <%= f.text_field :college_name, class: 'mdl-textfield__input', required: true  %>
-        <%= f.label :college_name, class: 'mdl-textfield__label' %>
+
+      <div class="mdl-cell--4-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="student_date_of_birth_div">
+          <%= f.text_field :date_of_birth, id: 'student_date_of_birth',
+                           class: 'mdl-textfield__input', required: true  %>
+          <%= f.label :date_of_birth, class: 'mdl-textfield__label' %>
+        </div>
       </div>
-    </div>
       <div class="mdl-cell--1-col">
         <div class="mdl-layout-spacer"></div>
       </div>
-    <div class="mdl-cell--4-col">
-      <%
-        avl_classes  = ['Class']
-        @fee_structure.each do |fee_structure|
-          if !avl_classes.include?(fee_structure.student_class)
-            avl_classes.push(fee_structure.student_class)
+
+      <div class="mdl-cell--4-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <%= f.text_field :college_name, class: 'mdl-textfield__input', required: true  %>
+          <%= f.label :college_name, class: 'mdl-textfield__label' %>
+        </div>
+      </div>
+    <div class="mdl-cell--1-col">
+      <div class="mdl-layout-spacer"></div>
+    </div>
+
+    <div class="mdl-cell--2-col">
+      <div class="mdl-layout-spacer"></div>
+    </div>
+
+      <div class="mdl-cell--4-col">
+        <%
+          avl_classes  = ['Class']
+          @fee_structure.each do |fee_structure|
+            if !avl_classes.include?(fee_structure.student_class)
+              avl_classes.push(fee_structure.student_class)
+            end
           end
-        end
-      %>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <%= f.select(:student_class, options_for_select(avl_classes, :disabled => 'Class',
-                                                        :selected=> @student.student_class),
-                     {}, class: 'mdl-textfield__input', id: 'student_class')  %>
-        <%= f.label :student_class, class: 'mdl-textfield__label', for: 'student_class' %>
+        %>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <%= f.select(:student_class, options_for_select(avl_classes, :disabled => 'Class',
+                                                          :selected=> @student.student_class),
+                       {}, class: 'mdl-textfield__input', id: 'student_class')  %>
+          <%= f.label :student_class, class: 'mdl-textfield__label', for: 'student_class' %>
+        </div>
       </div>
-    </div>
-    <div class="mdl-cell--1-col">
-      <div class="mdl-layout-spacer"></div>
-    </div>
+      <div class="mdl-cell--1-col">
+        <div class="mdl-layout-spacer"></div>
+      </div>
 
-    <div class="mdl-cell--2-col">
-      <div class="mdl-layout-spacer"></div>
-    </div>
-    <div class="mdl-cell--4-col">
-      <%
-        avl_sections  = ['Section']
-        @fee_structure.each do |fee_structure|
-          if !avl_sections.include?(fee_structure.section)
-            avl_sections.push(fee_structure.section)
+      <div class="mdl-cell--4-col">
+        <%
+          avl_sections  = ['Section']
+          @fee_structure.each do |fee_structure|
+            if !avl_sections.include?(fee_structure.section)
+              avl_sections.push(fee_structure.section)
+            end
           end
-        end
-      %>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <%= f.select(:division,
-                     options_for_select(avl_sections, :disabled => 'Section', :selected=> @student.division),
-                     {}, class: 'mdl-textfield__input', id: 'student_Section')  %>
-        <%= f.label 'Section', class: 'mdl-textfield__label', for: 'student_Section' %>
+        %>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <%= f.select(:division,
+                       options_for_select(avl_sections, :disabled => 'Section', :selected=> @student.division),
+                       {}, class: 'mdl-textfield__input', id: 'student_Section')  %>
+          <%= f.label 'Section', class: 'mdl-textfield__label', for: 'student_Section' %>
+        </div>
       </div>
-    </div>
-      <div class="mdl-cell--1-col">
-        <div class="mdl-layout-spacer"></div>
-      </div>
-    <div class="mdl-cell--4-col">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="admission_date_div">
-        <%= f.text_field :admission_date, id: 'admission_date',
-                         class: 'mdl-textfield__input', required: true  %>
-        <%= f.label :admission_date, class: 'mdl-textfield__label' %>
-      </div>
-    </div>
-
 
     <div class="mdl-cell--1-col">
       <div class="mdl-layout-spacer"></div>
@@ -174,48 +175,66 @@
     <div class="mdl-cell--2-col">
       <div class="mdl-layout-spacer"></div>
     </div>
-    <div class="mdl-cell--4-col">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="allocated_fee_div">
-        <%= f.text_field :allocated_fee, class: 'mdl-textfield__input',
-                         pattern: '[0-9]+(\.[0-9][0-9]?)?',
-                         id: 'allocated_fee', readonly: true %>
-        <%= f.label :allocated_fee, class: 'mdl-textfield__label' %>
-        <span class="mdl-textfield__error">Only decimal numbers with precision of 2 are allowed</span>
+
+      <div class="mdl-cell--4-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="admission_date_div">
+          <%= f.text_field :admission_date, id: 'admission_date',
+                           class: 'mdl-textfield__input', required: true  %>
+          <%= f.label :admission_date, class: 'mdl-textfield__label' %>
+        </div>
       </div>
-    </div>
-      <div class="mdl-cell--1-col">
-        <div class="mdl-layout-spacer"></div>
-      </div>
-    <div class="mdl-cell--4-col">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <%= f.select(:no_of_installments, options_for_select([['Installments'],['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
-                                                         :disabled => 'Installments', :selected=> @student.no_of_installments),
-                     {}, class: 'mdl-textfield__input', id: 'installment_no') %>
-        <%= f.label :no_of_installments, class: 'mdl-textfield__label' %>
-      </div>
-    </div>
+
     <div class="mdl-cell--1-col">
       <div class="mdl-layout-spacer"></div>
     </div>
+      <div class="mdl-cell--4-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="allocated_fee_div">
+          <%= f.text_field :allocated_fee, class: 'mdl-textfield__input',
+                           pattern: '[0-9]+(\.[0-9][0-9]?)?',
+                           id: 'allocated_fee', readonly: true %>
+          <%= f.label :allocated_fee, class: 'mdl-textfield__label' %>
+          <span class="mdl-textfield__error">Only decimal numbers with precision of 2 are allowed</span>
+        </div>
+      </div>
+
+    <div class="mdl-cell--1-col">
+      <div class="mdl-layout-spacer"></div>
+    </div>
+
     <div class="mdl-cell--2-col">
       <div class="mdl-layout-spacer"></div>
     </div>
+
+
     <div class="mdl-cell--4-col">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="allocated_fee_div">
-        <%= f.text_field :discount, class: 'mdl-textfield__input',
-                         pattern: '[0-9]+(\.[0-9][0-9]?)?',
-                         id: 'discount' %>
-        <%= f.label :discount, class: 'mdl-textfield__label', for: 'discount' %>
-        <span class="mdl-textfield__error">Only decimal numbers with precision of 2 are allowed</span>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <%= f.select(:no_of_installments, options_for_select([['Installments'],['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
+                                                               :disabled => 'Installments', :selected=> @student.no_of_installments),
+                       {}, class: 'mdl-textfield__input', id: 'installment_no') %>
+          <%= f.label :no_of_installments, class: 'mdl-textfield__label' %>
+        </div>
       </div>
-    </div>
+
+
+      <div class="mdl-cell--1-col">
+        <div class="mdl-layout-spacer"></div>
+      </div>
+      <div class="mdl-cell--4-col">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="allocated_fee_div">
+          <%= f.text_field :discount, class: 'mdl-textfield__input',
+                           pattern: '[0-9]+(\.[0-9][0-9]?)?',
+                           id: 'discount' %>
+          <%= f.label :discount, class: 'mdl-textfield__label', for: 'discount' %>
+          <span class="mdl-textfield__error">Only decimal numbers with precision of 2 are allowed</span>
+        </div>
+      </div>
   </div>
   <div class="mdl-grid">
     <div class="mdl-cell--2-col">
       <div class="mdl-layout-spacer"></div>
     </div>
     <div class="actions mdl-cell mdl-cell--1-col">
-      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Submit" />
     </div>
 <% end %>
 

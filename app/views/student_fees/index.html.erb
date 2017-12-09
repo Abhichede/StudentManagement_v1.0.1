@@ -30,7 +30,7 @@
 
         </th>
         </form>
-        <th colspan="3"><%= link_to "Export to Excel", student_fees_path(format: "xls"), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %></th>
+        <th colspan="3"><%= link_to "Export to Excel", student_fees_path(format: "xls", start_date: params[:start_date], end_date: params[:end_date]), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %></th>
       </tr>
       <tr>
         <th>Student</th>

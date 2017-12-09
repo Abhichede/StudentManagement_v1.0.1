@@ -54,22 +54,15 @@
                 <%= student.first_name %> <%= student.last_name %> <br/>(<%= student.student_class %> <%= student.division %>)
               </h2>
             </div>
-            <div class="mdl-card__supporting-text" style="height: 18rem; overflow: auto">
-
-
+            <div class="mdl-card__supporting-text" style="height: 16rem; overflow: auto">
               <ul class="demo-list-item mdl-list">
                 <li class="mdl-list__item mdl-list__item--three-line" >
                   <span class="mdl-list__item-primary-content">
-                    <span>College/School</span>
+                    <span>Mobile No's</span>
                     <span class="mdl-list__item-text-body">
-                      <%= student.college_name %>
+                      <%= student.mobile_no %><br/>
+                      <%= student.alternate_mobile %>
                     </span>
-                  </span>
-                </li>
-                <li class="mdl-list__item mdl-list__item--two-line">
-                  <span class="mdl-list__item-primary-content">
-                    <span>Mobile No</span>
-                    <span class="mdl-list__item-sub-title"><%= student.mobile_no %></span>
                   </span>
                 </li>
                 <li class="mdl-list__item mdl-list__item--two-line">
