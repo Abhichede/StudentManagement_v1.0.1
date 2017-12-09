@@ -47,6 +47,7 @@
         <Cell><Data ss:Type="String"></Data></Cell>
         <Cell><Data ss:Type="String"></Data></Cell>
       </Row>
+      <% if current_user.role == 'ADMIN' %>
       <Row>
         <Cell><Data ss:Type="String">Total Expense</Data></Cell>
       </Row>
@@ -54,6 +55,7 @@
       <Row>
         <Cell><Data ss:Type="String"><%= total_expense %></Data></Cell>
       </Row>
+      <% end %>
     </Table>
   </Worksheet>
 </Workbook>
