@@ -28,16 +28,24 @@
           <span class="mdl-layout-title"><%= link_to ClassInfo.first.class_name.upcase, root_path, style: 'color: white' %></span>
           <!-- Add spacer, to align navigation to the right -->
           <div class="mdl-layout-spacer"></div>
-          <nav class="mdl-navigation">
+          <!-- Right aligned menu below button -->
+          <button id="demo-menu-lower-right"
+                  class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+          </button>
+
+          <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+              for="demo-menu-lower-right">
             <% if user_signed_in? %>
-                Logged in as &nbsp;<strong><%= current_user.username %></strong>.
-                <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link mdl-navigation__link' %> |
-                <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link mdl-navigation__link'  %>
+                <li class="mdl-menu__item data-mdl-disabled"><%= current_user.username %></li>
+                <li class="mdl-menu__item--full-bleed-divider"></li>
+                <%= link_to '<li class="mdl-menu__item">Edit profile</li>'.html_safe, edit_user_registration_path %>
+                <%= link_to '<li class="mdl-menu__item">Log out</li>'.html_safe, destroy_user_session_path, method: :delete%>
             <% else %>
-                <% link_to "Sign up", new_user_registration_path, :class => 'navbar-link mdl-navigation__link'  %> |
-                <%= link_to "Login", new_user_session_path, :class => 'navbar-link mdl-navigation__link'  %>
+                <% link_to '<li class="mdl-menu__item">Sign out</li>'.html_safe, new_user_registration_path %>
+                <%= link_to'<li class="mdl-menu__item">Log in</li>'.html_safe, new_user_session_path %>
             <% end %>
-          </nav>
+          </ul>
         </div>
       </header>
       <div class="mdl-layout__drawer">
