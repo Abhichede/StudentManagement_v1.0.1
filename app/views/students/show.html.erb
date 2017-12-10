@@ -1,78 +1,78 @@
-<div class="mdl-cell mdl-cell--12-col">
-  <h3><%= @student.first_name %> <%= @student.last_name %></h3>
-</div>
-<div class="mdl-cell mdl-cell--4-col" style="overflow: auto">
-  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-    <tbody>
-    <tr>
-      <th>Father name</th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @student.father_name %></td>
-    </tr>
-    <tr>
-      <th>Father occupation</th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @student.father_occupation %></td>
-    </tr>
-    <tr>
-      <th>Mother name</th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @student.mother_name %></td>
-    </tr>
-    <tr>
-      <th>Address</th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @student.address %></td>
-    </tr>
-    <tr>
-      <th>Father Mobile No.</th>
-      <td class="mdl-data-table__cell--non-numeric">
-        <%= @student.mobile_no %>
-      </td>
-    </tr>
-    <tr>
-      <th>College name</th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @student.college_name %></td>
-    </tr>
-    <tr>
-      <th>Student class</th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @student.student_class %></td>
-    </tr>
-    <tr>
-      <th>Division</th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @student.division %></td>
-    </tr>
-    <tr>
-      <th>Date of birth</th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @student.date_of_birth %></td>
-    </tr>
-    <tr>
-      <th>Admission date</th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @student.admission_date %></td>
-    </tr>
-    <tr>
-      <th>Actions</th>
-      <td class="mdl-data-table__cell--non-numeric">
-        <%= link_to 'Edit', edit_student_path(@student), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
-        <%= link_to 'Back', :back, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent' %>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="mdl-cell mdl-cell--8-col">
-  <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--6-col">
-      <h4>PAYMENT INFO.</h4>
-    </div>
-    <div class="mdl-cell mdl-cell--3-col">
-      <%= link_to 'Pay Fee', {controller: 'student_fees', action: 'new', student_id: @student.id}, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored', style: 'float: right;' %>
-    </div>
-    <div class="mdl-cell mdl-cell--3-col">
-      <button id="show-dialog" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Add Discount</button>
-    </div>
-  </div>
-  <div class="mdl-cell mdl-cell--12-col">
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-col">
+    <h3><%= @student.first_name %> <%= @student.last_name %></h3>
     <div style="overflow: auto">
       <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-        <thead class="students-table">
+        <tbody>
+        <tr>
+          <th>Father name</th>
+          <td class="mdl-data-table__cell--non-numeric"><%= @student.father_name %></td>
+        </tr>
+        <tr>
+          <th>Father occupation</th>
+          <td class="mdl-data-table__cell--non-numeric"><%= @student.father_occupation %></td>
+        </tr>
+        <tr>
+          <th>Mother name</th>
+          <td class="mdl-data-table__cell--non-numeric"><%= @student.mother_name %></td>
+        </tr>
+        <tr>
+          <th>Address</th>
+          <td class="mdl-data-table__cell--non-numeric"><%= @student.address %></td>
+        </tr>
+        <tr>
+          <th>Father Mobile No.</th>
+          <td class="mdl-data-table__cell--non-numeric">
+            <%= @student.mobile_no %>
+          </td>
+        </tr>
+        <tr>
+          <th>College name</th>
+          <td class="mdl-data-table__cell--non-numeric"><%= @student.college_name %></td>
+        </tr>
+        <tr>
+          <th>Student class</th>
+          <td class="mdl-data-table__cell--non-numeric"><%= @student.student_class %></td>
+        </tr>
+        <tr>
+          <th>Division</th>
+          <td class="mdl-data-table__cell--non-numeric"><%= @student.division %></td>
+        </tr>
+        <tr>
+          <th>Date of birth</th>
+          <td class="mdl-data-table__cell--non-numeric"><%= @student.date_of_birth %></td>
+        </tr>
+        <tr>
+          <th>Admission date</th>
+          <td class="mdl-data-table__cell--non-numeric"><%= @student.admission_date %></td>
+        </tr>
+        <tr>
+          <th>Actions</th>
+          <td class="mdl-data-table__cell--non-numeric">
+            <%= link_to 'Edit', edit_student_path(@student), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+            <%= link_to 'Back', :back, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent' %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="mdl-cell mdl-cell--8-col">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone">
+        <h4>PAYMENT INFO.</h4>
+      </div>
+      <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone" style="padding-top: 1rem">
+        <%= link_to 'Pay Fee', {controller: 'student_fees', action: 'new', student_id: @student.id}, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+      </div>
+      <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone" style="padding-top: 1rem">
+        <button id="show-dialog" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Add Discount</button>
+      </div>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col">
+      <div style="overflow: auto">
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="myTable">
+          <thead class="students-table">
           <tr>
             <th>Payment date</th>
             <th>Installment no</th>
@@ -82,55 +82,57 @@
             <th>Paid by</th>
             <th>Received by</th>
           </tr>
-        </thead>
+          </thead>
 
-        <tbody>
+          <tbody>
           <% if @student.student_fees.all.blank? %>
-            <tr>
-              <td colspan="7" class="mdl-data-table__cell--non-numeric">NOTHING TO SHOW</td>
-            </tr>
+              <tr>
+                <td colspan="7" class="mdl-data-table__cell--non-numeric">NOTHING TO SHOW</td>
+              </tr>
           <% else %>
-            <% @student.student_fees.each do |student_fee| %>
-                <tr>
-                  <td><%= student_fee.payment_date %></td>
-                  <td><%= student_fee.installment_no %></td>
-                  <td>&#8377; <%= number_to_indian_currency(student_fee.amount.to_f.round(2)) %></td>
-                  <td><%= student_fee.payment_method %></td>
-                  <td><%= student_fee.payment_desc %></td>
-                  <td><%= student_fee.paid_by %></td>
-                  <td><%= student_fee.received_by %></td>
-                </tr>
-            <% end %>
+              <% @student.student_fees.each do |student_fee| %>
+                  <tr>
+                    <td><%= student_fee.payment_date %></td>
+                    <td><%= student_fee.installment_no %></td>
+                    <td>&#8377; <%= number_to_indian_currency(student_fee.amount.to_f.round(2)) %></td>
+                    <td><%= student_fee.payment_method %></td>
+                    <td><%= student_fee.payment_desc %></td>
+                    <td><%= student_fee.paid_by %></td>
+                    <td><%= student_fee.received_by %></td>
+                  </tr>
+              <% end %>
           <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="mdl-cell--12-col">
+      <% if current_user.role == 'ADMIN' %>
+          <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="float: right !important;">
+            <tbody>
+            <tr>
+              <th>Allocated Fee</th>
+              <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(@student.allocated_fee.to_f.round(2)) %></td>
+            </tr>
+            <tr>
+              <th>Discount</th>
+              <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(@student.discount.to_f.round(2)) %></td>
+            </tr>
+            <tr>
+              <th>Paid Fee</th>
+              <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(@student.total_paid.to_f.round(2)) %></td>
+            </tr>
+            <tr>
+              <th>Balance Fee</th>
+              <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency((@student.allocated_fee.to_f.round(2) - @student.discount.to_f.round(2)) - @student.total_paid.to_f.round(2)) %></td>
+            </tr>
+            </tbody>
+          </table>
+      <% end %>
     </div>
   </div>
-  <div class="mdl-cell--10-col">
-    <% if current_user.role == 'ADMIN' %>
-    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="float: right !important;">
-      <tbody>
-        <tr>
-          <th>Allocated Fee</th>
-          <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(@student.allocated_fee.to_f.round(2)) %></td>
-        </tr>
-        <tr>
-          <th>Discount</th>
-          <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(@student.discount.to_f.round(2)) %></td>
-        </tr>
-        <tr>
-          <th>Paid Fee</th>
-          <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(@student.total_paid.to_f.round(2)) %></td>
-        </tr>
-        <tr>
-          <th>Balance Fee</th>
-          <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency((@student.allocated_fee.to_f.round(2) - @student.discount.to_f.round(2)) - @student.total_paid.to_f.round(2)) %></td>
-        </tr>
-      </tbody>
-    </table>
-    <% end %>
-  </div>
 </div>
+
 
 <dialog class="mdl-dialog" id="discount-dialog">
   <h5 class="mdl-dialog__title">Enter Discount</h5>

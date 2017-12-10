@@ -2,73 +2,74 @@
   <h3>Student Fees</h3>
 </div>
 <div class="mdl-grid">
-  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-    <thead>
-      <tr>
-        <th class="mdl-data-table__cell--non-numeric">Student Class</th>
-        <th class="mdl-data-table__cell--non-numeric">Section</th>
-        <th class="mdl-data-table__cell--non-numeric">Allocated fee</th>
-        <th colspan="2"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <%= form_for(@fee_structure) do |f| %>
-            <td class="mdl-data-table__cell--non-numeric">
-              <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <%= f.text_field :student_class, class: 'mdl-textfield__input' %>
-                <%= f.label :student_class, class: 'mdl-textfield__label' %>
-              </div>
-            </td>
-
-            <td class="mdl-data-table__cell--non-numeric">
-              <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <%= f.text_field :section, class: 'mdl-textfield__input' %>
-                <%= f.label :section, class: 'mdl-textfield__label' %>
-              </div>
-            </td>
-
-            <td class="mdl-data-table__cell--non-numeric">
-              <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <%= f.text_field :allocated_fee, class: 'mdl-textfield__input' %>
-                <%= f.label :allocated_fee, class: 'mdl-textfield__label' %>
-              </div>
-            </td>
-
-            <td class="actions">
-              <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
-            </td>
-        <% end %>
-      </tr>
-      <% @fee_structures.each do |fee_structure| %>
+  <div class="table-container" style="overflow: auto">
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="myTable">
+      <thead>
         <tr>
-          <td class="mdl-data-table__cell--non-numeric"><%= fee_structure.student_class %></td>
-          <td class="mdl-data-table__cell--non-numeric"><%= fee_structure.section %></td>
-          <td class="mdl-data-table__cell--non-numeric"><%= fee_structure.allocated_fee %></td>
-          <td class="mdl-data-table__cell--non-numeric">
-            <%= link_to edit_fee_structure_path(fee_structure),
-                        class: 'mdl-button mdl-js-button mdl-button--icon' do %>
-                <i class="material-icons" id='tt_edit_<%= fee_structure.id %>' >mode_edit</i>
-            <% end %>
-          </td>
-          <td class="mdl-data-table__cell--non-numeric">
-            <%= link_to fee_structure, method: :delete, data: { confirm: 'Are you sure?' },
-                        class: 'mdl-button mdl-js-button mdl-button--icon' do %>
-                <i class="material-icons" id='tt_delete_<%= fee_structure.id %>'>delete</i>
-            <% end %>
-          </td>
+          <%= form_for(@fee_structure) do |f| %>
+              <th class="mdl-data-table__cell--non-numeric">
+                <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <%= f.text_field :student_class, class: 'mdl-textfield__input' %>
+                  <%= f.label :student_class, class: 'mdl-textfield__label' %>
+                </div>
+              </th>
+
+              <th class="mdl-data-table__cell--non-numeric">
+                <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <%= f.text_field :section, class: 'mdl-textfield__input' %>
+                  <%= f.label :section, class: 'mdl-textfield__label' %>
+                </div>
+              </th>
+
+              <th class="mdl-data-table__cell--non-numeric">
+                <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <%= f.text_field :allocated_fee, class: 'mdl-textfield__input' %>
+                  <%= f.label :allocated_fee, class: 'mdl-textfield__label' %>
+                </div>
+              </th>
+
+              <th class="actions mdl-data-table__cell--non-numeric">
+                <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+              </th>
+              <th></th>
+          <% end %>
         </tr>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">Student Class</th>
+          <th class="mdl-data-table__cell--non-numeric">Section</th>
+          <th class="mdl-data-table__cell--non-numeric">Allocated fee</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
 
-        <div class="mdl-tooltip" data-mdl-for="tt_edit_<%= fee_structure.id %>">
-          <strong>Edit</strong>
-        </div>
-        <div class="mdl-tooltip" data-mdl-for="tt_delete_<%= fee_structure.id %>">
-          <strong>Delete</strong>
-        </div>
-      <% end %>
-    </tbody>
-  </table>
+      <tbody>
+        <% @fee_structures.each do |fee_structure| %>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric"><%= fee_structure.student_class %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= fee_structure.section %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= fee_structure.allocated_fee %></td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= link_to edit_fee_structure_path(fee_structure),
+                          class: 'mdl-button mdl-js-button mdl-button--icon' do %>
+                  <i class="material-icons" id='tt_edit_<%= fee_structure.id %>' >mode_edit</i>
+              <% end %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= link_to fee_structure, method: :delete, data: { confirm: 'Are you sure?' },
+                          class: 'mdl-button mdl-js-button mdl-button--icon' do %>
+                  <i class="material-icons" id='tt_delete_<%= fee_structure.id %>'>delete</i>
+              <% end %>
+            </td>
+          </tr>
 
-  <br>
+          <div class="mdl-tooltip" data-mdl-for="tt_edit_<%= fee_structure.id %>">
+            <strong>Edit</strong>
+          </div>
+          <div class="mdl-tooltip" data-mdl-for="tt_delete_<%= fee_structure.id %>">
+            <strong>Delete</strong>
+          </div>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

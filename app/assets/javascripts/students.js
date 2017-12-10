@@ -34,4 +34,5 @@ $(function() {
     }).on('focusout', function () {
         $('div#payment_end_date_div').addClass('is-dirty');
     });
+
 });
