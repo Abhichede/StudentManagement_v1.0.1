@@ -47,7 +47,7 @@ div.data-list{
 div.data-list > span{
     float: right;
 }
-.demo-card-square{
+.demo-card-square-students{
     width: 100%;
     height: 25rem;
 }
@@ -97,3 +97,12 @@ table#myTable > tbody > tr > td{
     @page { margin: 2cm }
 }
 /******************************************************************************/
+
+.mdl-navigation__link{
+    color: #000 !important;
+    font-size: medium;
+}
+.mdl-navigation__link:hover{
+    background-color: #46B6AC !important;
+    color: #fff !important;
+}

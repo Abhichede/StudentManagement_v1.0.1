@@ -1,10 +1,11 @@
-<div class="mdl-cell--2-col">
+<%= link_to "<i class='material-icons'>keyboard_arrow_left</i> Back".html_safe, :back, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent' %>
+<div class="mdl-grid">
+  <div class="mdl-layout-spacer"></div>
+  <h3>Edit Office Expense</h3>
   <div class="mdl-layout-spacer"></div>
 </div>
-<h3>Editing Office Expenses</h3>
-
-<%= render 'form', office_expense: @office_expense %>
-<div class="mdl-cell mdl-cell--1-col">
-  <%= link_to 'Back', :back, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent' %>
-</div>
+<div class="mdl-grid">
+  <div class="mdl-layout-spacer"></div>
+  <%= render 'form', office_expense: @office_expense %>
+  <div class="mdl-layout-spacer"></div>
 </div>

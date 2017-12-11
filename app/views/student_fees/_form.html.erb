@@ -10,69 +10,102 @@
       </ul>
     </div>
   <% end %>
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-    <% if !params[:student_id].nil? %>
-      <%= f.text_field :student_id, class: 'mdl-textfield__input', id: 'student_select', value: params[:student_id], readonly: true %>
-      <%= f.label @student.first_name+ ' '+ @student.last_name, class: 'mdl-textfield__label', for: 'student_select' %>
-    <% else %>
-      <%= f.text_field :student_id, class: 'mdl-textfield__input', id: 'student_select', readonly: true %>
-      <%= f.label Student.find(params[:student_id]).first_name + ' ' + Student.find(params[:student_id]).last_name, class: 'mdl-textfield__label', for: 'student_select' %>
-    <% end %>
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+        <% if !params[:student_id].nil? %>
+          <%= f.text_field :student_id, class: 'mdl-textfield__input', id: 'student_select', value: params[:student_id], readonly: true %>
+          <%= f.label @student.first_name+ ' '+ @student.last_name, class: 'mdl-textfield__label', for: 'student_select' %>
+        <% else %>
+          <%= f.text_field :student_id, class: 'mdl-textfield__input', id: 'student_select', readonly: true %>
+          <%= f.label Student.find(params[:student_id]).first_name + ' ' + Student.find(params[:student_id]).last_name, class: 'mdl-textfield__label', for: 'student_select' %>
+        <% end %>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="payment_date_div">
+        <%= f.label :payment_date, class: 'mdl-textfield__label' %>
+        <%= f.text_field :payment_date, class: 'mdl-textfield__input', id: 'payment_date' %>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
   </div>
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <% if !params[:student_id].nil? %>
+          <%
+            if @student.student_fees.blank?
+              last_val = 1
+            else
+              last_val = @student.student_fees.last.installment_no.to_i + 1
+            end
 
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="payment_date_div">
-    <%= f.label :payment_date, class: 'mdl-textfield__label' %>
-    <%= f.text_field :payment_date, class: 'mdl-textfield__input', id: 'payment_date' %>
+          %>
+          <%= f.label :installment_no, class: 'mdl-textfield__label', for: 'installment_no' %>
+          <%= f.text_field :installment_no, class: 'mdl-textfield__input', id: 'installment_no', readonly: true, value: last_val %>
+        <% else %>
+          <%= f.label :installment_no, class: 'mdl-textfield__label', for: 'installment_no' %>
+          <%= f.text_field :installment_no, class: 'mdl-textfield__input', id: 'installment_no', readonly: true %>
+        <% end %>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <%= f.label :amount, class: 'mdl-textfield__label' %>
+        <%= f.text_field :amount, class: 'mdl-textfield__input' %>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
   </div>
-
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <% if !params[:student_id].nil? %>
-      <%
-        if @student.student_fees.blank?
-          last_val = 1
-        else
-          last_val = @student.student_fees.last.installment_no.to_i + 1
-        end
-
-      %>
-      <%= f.label :installment_no, class: 'mdl-textfield__label', for: 'installment_no' %>
-      <%= f.text_field :installment_no, class: 'mdl-textfield__input', id: 'installment_no', readonly: true, value: last_val %>
-    <% else %>
-      <%= f.label :installment_no, class: 'mdl-textfield__label', for: 'installment_no' %>
-      <%= f.text_field :installment_no, class: 'mdl-textfield__input', id: 'installment_no', readonly: true %>
-    <% end %>
-
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+        <%= f.select(:payment_method, options_for_select([['Payment Method'],['CASH','CASH'],['Cheque','Cheque'],['Bank Transfer','Bank Transfer'],['NEFT / IMPS / RTGS','NEFT / IMPS / RTGS']],
+                                                         :disabled => 'Payment Method', :selected=> @student_fee.payment_method),
+                     {}, class: 'mdl-textfield__input', id: 'payment_method') %>
+        <%= f.label :payment_method, class: 'mdl-textfield__label', for: 'payment_method' %>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <%= f.label :payment_desc, class: 'mdl-textfield__label' %>
+        <%= f.text_field :payment_desc, class: 'mdl-textfield__input' %>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
   </div>
-
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <%= f.label :amount, class: 'mdl-textfield__label' %>
-    <%= f.text_field :amount, class: 'mdl-textfield__input' %>
-  </div>
-
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-    <%= f.select(:payment_method, options_for_select([['Payment Method'],['CASH','CASH'],['Cheque','Cheque'],['Bank Transfer','Bank Transfer'],['NEFT / IMPS / RTGS','NEFT / IMPS / RTGS']],
-                                                     :disabled => 'Payment Method', :selected=> @student_fee.payment_method),
-                 {}, class: 'mdl-textfield__input', id: 'payment_method') %>
-    <%= f.label :payment_method, class: 'mdl-textfield__label', for: 'payment_method' %>
-  </div>
-
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <%= f.label :payment_desc, class: 'mdl-textfield__label' %>
-    <%= f.text_field :payment_desc, class: 'mdl-textfield__input' %>
-  </div>
-
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <%= f.label :paid_by, class: 'mdl-textfield__label' %>
-    <%= f.text_field :paid_by, class: 'mdl-textfield__input' %>
-  </div>
-
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <%= f.label :received_by, class: 'mdl-textfield__label' %>
-    <%= f.text_field :received_by, class: 'mdl-textfield__input' %>
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <%= f.label :paid_by, class: 'mdl-textfield__label' %>
+        <%= f.text_field :paid_by, class: 'mdl-textfield__input' %>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <%= f.label :received_by, class: 'mdl-textfield__label' %>
+        <%= f.text_field :received_by, class: 'mdl-textfield__input' %>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
   </div>
 
     <div class="mdl-grid">
-      <div class="actions mdl-cell mdl-cell--1-col">
+      <div class="mdl-layout-spacer"></div>
         <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Submit"/>
-      </div>
+      <div class="mdl-layout-spacer"></div>
+    </div>
 <% end %>
