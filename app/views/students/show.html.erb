@@ -1,3 +1,4 @@
+<%= link_to "<i class='material-icons'>keyboard_arrow_left</i> Back".html_safe, :back, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent' %>
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--4-col">
     <h3><%= @student.first_name %> <%= @student.last_name %></h3>
@@ -50,7 +51,6 @@
           <th>Actions</th>
           <td class="mdl-data-table__cell--non-numeric">
             <%= link_to 'Edit', edit_student_path(@student), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
-            <%= link_to 'Back', :back, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent' %>
           </td>
         </tr>
         </tbody>
@@ -71,16 +71,17 @@
     </div>
     <div class="mdl-cell mdl-cell--12-col">
       <div style="overflow: auto">
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="myTable">
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
           <thead class="students-table">
           <tr>
-            <th>Payment date</th>
-            <th>Installment no</th>
-            <th>Amount</th>
-            <th>Payment method</th>
-            <th>Payment desc</th>
-            <th>Paid by</th>
-            <th>Received by</th>
+            <th class="mdl-data-table__cell--non-numeric">Payment date</th>
+            <th class="mdl-data-table__cell--non-numeric">Installment no</th>
+            <th class="mdl-data-table__cell--non-numeric">Amount</th>
+            <th class="mdl-data-table__cell--non-numeric">Payment method</th>
+            <th class="mdl-data-table__cell--non-numeric">Payment desc</th>
+            <th class="mdl-data-table__cell--non-numeric">Paid by</th>
+            <th class="mdl-data-table__cell--non-numeric">Received by</th>
+            <th class="mdl-data-table__cell--non-numeric">Print</th>
           </tr>
           </thead>
 
@@ -92,13 +93,17 @@
           <% else %>
               <% @student.student_fees.each do |student_fee| %>
                   <tr>
-                    <td><%= student_fee.payment_date %></td>
-                    <td><%= student_fee.installment_no %></td>
-                    <td>&#8377; <%= number_to_indian_currency(student_fee.amount.to_f.round(2)) %></td>
-                    <td><%= student_fee.payment_method %></td>
-                    <td><%= student_fee.payment_desc %></td>
-                    <td><%= student_fee.paid_by %></td>
-                    <td><%= student_fee.received_by %></td>
+                    <td class="mdl-data-table__cell--non-numeric"><%= student_fee.payment_date %></td>
+                    <td class="mdl-data-table__cell--non-numeric"><%= student_fee.installment_no %></td>
+                    <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(student_fee.amount.to_f.round(2)) %></td>
+                    <td class="mdl-data-table__cell--non-numeric"><%= student_fee.payment_method %></td>
+                    <td class="mdl-data-table__cell--non-numeric"><%= student_fee.payment_desc %></td>
+                    <td class="mdl-data-table__cell--non-numeric"><%= student_fee.paid_by %></td>
+                    <td class="mdl-data-table__cell--non-numeric"><%= student_fee.received_by %></td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                      <%= link_to "<i class='material-icons' id='tt_delete_#{student_fee.id}'>print</i>".html_safe, {controller: 'students', action: 'print_receipt', id: student_fee},
+                                  class: 'mdl-button mdl-js-button mdl-button--icon' %>
+                    </td>
                   </tr>
               <% end %>
           <% end %>

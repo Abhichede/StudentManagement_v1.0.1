@@ -1,0 +1,74 @@
+<%= link_to "<i class='material-icons'>keyboard_arrow_left</i> Back".html_safe, student_path(@payment.student), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent avoid-in-print' %>
+<div class="mdl-grid">
+  <div class="mdl-layout-spacer"></div>
+  <%= image_tag 'logo.jpg', class: 'responsive', width: 150, height: 100 %>
+  <div class="mdl-layout-spacer"></div>
+</div>
+<div class="mdl-grid">
+  <div class="mdl-layout-spacer"></div>
+  <h5>Fee Receipt</h5>
+  <div class="mdl-layout-spacer"></div>
+</div>
+<div class="mdl-grid">
+<div class="mdl-layout-spacer"></div>
+
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <tbody>
+    <tr>
+      <th>Student Name:</th>
+      <td class="mdl-data-table__cell--non-numeric"><%= @payment.student.first_name %> <%= @payment.student.last_name %></td>
+    </tr>
+    <tr>
+      <th>Date: </th>
+      <td class="mdl-data-table__cell--non-numeric"><%= @payment.payment_date %></td>
+    </tr>
+    <tr>
+      <th>Installment No: </th>
+      <td class="mdl-data-table__cell--non-numeric"><%= @payment.installment_no %></td>
+    </tr>
+    <tr>
+      <th>Amount: </th>
+      <td class="mdl-data-table__cell--non-numeric"><%= @payment.amount %></td>
+    </tr>
+    <tr>
+      <th>Payment Method: </th>
+      <td class="mdl-data-table__cell--non-numeric">
+        <%= @payment.payment_method %>
+      </td>
+    </tr>
+    <tr>
+      <th>Payment Desc: </th>
+      <td class="mdl-data-table__cell--non-numeric">
+        <%= @payment.payment_desc %>
+      </td>
+    </tr>
+    <tr>
+      <th>Paid By: </th>
+      <td class="mdl-data-table__cell--non-numeric">
+        <%= @payment.paid_by %>
+      </td>
+    </tr>
+    <tr>
+      <th>Received By: </th>
+      <td class="mdl-data-table__cell--non-numeric">
+        <%= @payment.received_by %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="mdl-layout-spacer"></div>
+</div>
+<br/>
+<div class="mdl-grid">
+  <div class="mdl-layout-spacer"></div>
+  <h5>For <%= ClassInfo.first.class_name %></h5>
+  <div class="mdl-layout-spacer"></div>
+  <h5>For <%= @payment.paid_by %></h5>
+  <div class="mdl-layout-spacer"></div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+   window.print();
+  });
+</script>

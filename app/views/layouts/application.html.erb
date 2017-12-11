@@ -22,7 +22,7 @@
 
     <!-- Always shows a header, even in smaller screens. -->
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header ">
+      <header class="mdl-layout__header avoid-in-print">
         <div class="mdl-layout__header-row">
           <!-- Title -->
           <span class="mdl-layout-title"><%= link_to ClassInfo.first.class_name.upcase, root_path, style: 'color: white' %></span>
@@ -48,8 +48,8 @@
           </ul>
         </div>
       </header>
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title"><%= ClassInfo.first.class_name.upcase %></span>
+      <div class="mdl-layout__drawer avoid-in-print">
+        <span class="mdl-layout-title" style="padding: 0 !important;"><%= image_tag 'logo.jpg', class: 'responsive', width: 250, height: 200 %></span>
         <nav class="mdl-navigation">
           <a class="mdl-navigation__link" href="<%= students_path %>">Students</a>
           <a class="mdl-navigation__link" href="<%= student_fees_path %>">Fee Collection</a>
@@ -60,7 +60,7 @@
       <main class="mdl-layout__content">
         <div class="page-content">
           <!-- Your content goes here -->
-          <div class="mdl-grid">
+          <div class="mdl-grid avoid-in-print">
             <div class="mdl-layout-spacer"></div>
             <% if notice %>
                 <p class="alert alert-success"><%= notice %></p>
@@ -73,7 +73,7 @@
             <%= yield %>
         </div>
       </main>
-      <footer class="mdl-mini-footer" style="padding-top: 5px !important; padding-bottom: 10px !important;">
+      <footer class="mdl-mini-footer avoid-in-print" style="padding-top: 5px !important; padding-bottom: 10px !important;">
         <div class="mdl-mini-footer__left-section">
           <div class="mdl-logo">&copy; <%= ClassInfo.first.class_name.upcase %></div>
         </div>

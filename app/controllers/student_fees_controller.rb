@@ -48,7 +48,7 @@ class StudentFeesController < ApplicationController
       if balance_amount > 0 && currently_paying <= balance_amount
         if @student_fee.save
           @student.update(:total_paid => (paid_fee + currently_paying))
-          format.html { redirect_to student_fees_path, notice: 'Student fee was successfully created.' }
+          format.html { redirect_to controller: 'students', action: 'print_receipt', id: @student_fee.id}
           format.json { render :show, status: :created, location: @student_fees }
         else
           format.html { render :new }

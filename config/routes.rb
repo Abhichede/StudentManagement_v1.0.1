@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
   get 'get_allocated_fee', to: 'students#update_allocated_fee'
   get 'update_discount', to: 'students#update_discount'
+  get 'print_receipt', to: 'students#print_receipt'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -8,7 +8,13 @@
   end
 %>
 <div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--6-col">
+  <div class="mdl-layout-spacer"></div>
+    <h3>Office Expenses</h3>
+  <div class="mdl-layout-spacer"></div>
+</div>
+<div class="mdl-grid" >
+  <div class="mdl-layout-spacer mdl-cell mdl-cell--1-col"></div>
+  <div class="mdl-cell mdl-cell--11-col">
     <% if current_user.role == 'ADMIN' %>
         <table class="mdl-data-table mdl-js-data-table" style="background-color: #46B6AC">
           <thead>
@@ -22,13 +28,8 @@
         </table>
     <% end %>
   </div>
-  <div class="mdl-cell mdl-cell--6-col">
-    <h3>Office Expenses</h3>
-  </div>
-</div>
-<div class="mdl-grid" >
-  <div class="mdl-layout-spacer"></div>
-  <div class="table-container" style="overflow: auto">
+  <div class="mdl-layout-spacer mdl-cell mdl-cell--1-col"></div>
+  <div class="table-container mdl-cell mdl-cell--11-col" style="overflow: auto">
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="myTable">
       <thead>
         <tr>

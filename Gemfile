@@ -37,10 +37,10 @@ gem 'jbuilder', '~> 2.5'
 
 # Custom
 # gem 'material_design_lite-sass'
-gem 'jquery-ui-rails'
-gem 'html5forms-rails'
-gem 'modernizr-rails'
 gem 'devise'
+gem 'html5forms-rails'
+gem 'jquery-ui-rails'
+gem 'modernizr-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
