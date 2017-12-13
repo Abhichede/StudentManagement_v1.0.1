@@ -6,4 +6,4 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-ClassInfo.create(class_name: 'DNYANJYOTI CLASSES', address: 'DINDORI', contact_no: '', available_classes: '', subjects: '')
+ClassInfo.create(class_name: 'DNYANJYOTI CLASSES', address: 'In front of Panchayat Samiti, Nilwandi Road, Dindori, Nashik', contact_no: '9689970699, 9730501872', available_classes: '', subjects: '')

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :student_fees
   resources :class_infos
   resources :students
-  root 'students#index'
+  root 'class_infos#index'
 
   get 'get_allocated_fee', to: 'students#update_allocated_fee'
   get 'update_discount', to: 'students#update_discount'

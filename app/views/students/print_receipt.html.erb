@@ -1,74 +1,73 @@
 <%= link_to "<i class='material-icons'>keyboard_arrow_left</i> Back".html_safe, student_path(@payment.student), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent avoid-in-print' %>
 <div class="mdl-grid">
   <div class="mdl-layout-spacer"></div>
-  <%= image_tag 'logo.jpg', class: 'responsive', width: 150, height: 100 %>
+    <div >
+    <%= image_tag 'logo-dnyanjyoti.jpg', class: 'responsive', width: 100, height: 100 %>
+    </div>
+  <div class="mdl-layout-spacer"></div>
+    <div class="mdl-typography--text-center" >
+      <h5>KRISHA FOUNDATION'S</h5>
+      <em>Reg. No.: MAHARASHTRA/7408/JALGAON F/5984(JALGAON)</em>
+      <h5 style="color: red"><%= ClassInfo.first.class_name.upcase %></h5>
+      <em><%= ClassInfo.first.address %></em><br/>
+      <em>Contact No: <%= ClassInfo.first.contact_no %></em>
+    </div>
+  <div class="mdl-layout-spacer"></div>
+    <div  >
+      <%= image_tag 'logo-krisha.jpg', class: 'responsive', width: 100, height: 100 %>
+    </div>
+  <div class="mdl-layout-spacer"></div>
+</div>
+<hr/>
+<div class="mdl-grid">
+  <span style="float: right">Receipt No.: <%= @payment.id %></span>
+  <div class="mdl-layout-spacer"></div>
+  <span style="float: right">Date: <%= @payment.payment_date %></span>
+</div>
+<div class="mdl-grid">
+  <div class="mdl-layout-spacer"></div>
+  <h5>Fee Receipt </h5>
   <div class="mdl-layout-spacer"></div>
 </div>
 <div class="mdl-grid">
   <div class="mdl-layout-spacer"></div>
-  <h5>Fee Receipt</h5>
+  <div class="mdl-cell mdl-cell--6-col">
+    <h6>
+      Received With Thanks from <strong><%= @payment.student.first_name.upcase %> <%= @payment.student.father_name.upcase %> <%= @payment.student.last_name.upcase %></strong><br/>
+      The Sum of Rupees <strong><%= number_to_human(@payment.amount) %></strong> Only<br/>
+      By <strong><%= @payment.payment_method %></strong> <strong><%= @payment.payment_desc %></strong> <br/>
+      To Payment Of <strong><%= @payment.installment_no %></strong> Installment.
+    </h6>
+  </div>
   <div class="mdl-layout-spacer"></div>
 </div>
 <div class="mdl-grid">
-<div class="mdl-layout-spacer"></div>
-
-  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-    <tbody>
-    <tr>
-      <th>Student Name:</th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @payment.student.first_name %> <%= @payment.student.last_name %></td>
-    </tr>
-    <tr>
-      <th>Date: </th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @payment.payment_date %></td>
-    </tr>
-    <tr>
-      <th>Installment No: </th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @payment.installment_no %></td>
-    </tr>
-    <tr>
-      <th>Amount: </th>
-      <td class="mdl-data-table__cell--non-numeric"><%= @payment.amount %></td>
-    </tr>
-    <tr>
-      <th>Payment Method: </th>
-      <td class="mdl-data-table__cell--non-numeric">
-        <%= @payment.payment_method %>
-      </td>
-    </tr>
-    <tr>
-      <th>Payment Desc: </th>
-      <td class="mdl-data-table__cell--non-numeric">
-        <%= @payment.payment_desc %>
-      </td>
-    </tr>
-    <tr>
-      <th>Paid By: </th>
-      <td class="mdl-data-table__cell--non-numeric">
-        <%= @payment.paid_by %>
-      </td>
-    </tr>
-    <tr>
-      <th>Received By: </th>
-      <td class="mdl-data-table__cell--non-numeric">
-        <%= @payment.received_by %>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="mdl-layout-spacer"></div>
+  <h5><strong>Total: <%= @payment.student.allocated_fee %> /-</strong></h5>
+  <div class="mdl-layout-spacer"></div>
+  <h5><strong>Paid: <%= @payment.student.total_paid %> /-</strong></h5>
+  <div class="mdl-layout-spacer"></div>
+  <h5><strong>Balance: <%= @payment.student.allocated_fee.to_f.round(2) + @payment.student.total_paid.to_f.round(2) %> /-</strong></h5>
   <div class="mdl-layout-spacer"></div>
 </div>
 <br/>
 <div class="mdl-grid">
   <div class="mdl-layout-spacer"></div>
-  <h5>For <%= ClassInfo.first.class_name %></h5>
-  <div class="mdl-layout-spacer"></div>
-  <h5>For <%= @payment.paid_by %></h5>
-  <div class="mdl-layout-spacer"></div>
+  <h5>
+    <br/>
+    Sign
+  </h5>
 </div>
-
+<hr/>
+<div class="mdl-grid">
+  <div class="mdl-layout-spacer"></div>
+  <span style="font-size: smaller">
+    Powered By LINKER IT SOLUTIONS PVT. LTD.
+  </span>
+</div>
 <script type="text/javascript">
   $(document).ready(function () {
+
    window.print();
   });
 </script>

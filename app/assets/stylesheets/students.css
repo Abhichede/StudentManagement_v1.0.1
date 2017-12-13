@@ -94,7 +94,17 @@ table#myTable > tbody > tr > td{
     }
 
     /* Default left, right, top, bottom margin is 2cm */
-    @page { margin: 2cm }
+    @page {
+        margin: .5cm;
+    }
+    h5{
+        color: red !important;
+        margin: 0 !important;
+        font-size: medium;
+    }
+    em{
+        font-size: smaller;
+    }
 }
 /******************************************************************************/
 

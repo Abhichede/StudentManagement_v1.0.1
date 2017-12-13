@@ -4,10 +4,12 @@ class StudentFeesController < ApplicationController
   # GET /student_fees
   # GET /student_fees.json
   def index
-    if params[:start_date].nil? || params[:end_date].nil?
+    if params[:start_date].nil? || params[:end_date].nil? || params[:standard].nil? || params[:section].nil?
       @student_fees = StudentFee.all
-    else
+    elsif params[:standard] == '' || params[:section] == ''
       @student_fees = StudentFee.where("payment_date BETWEEN ? AND ?", params[:start_date], params[:end_date])
+    else
+      @student_fees = StudentFee.where("payment_date BETWEEN ? AND ?", params[:start_date], params[:end_date]).joins(:student).where("lower(student_class) LIKE lower(?) AND lower(division) LIKE (?)", params[:standard], params[:section])
     end
 
     respond_to do |format|

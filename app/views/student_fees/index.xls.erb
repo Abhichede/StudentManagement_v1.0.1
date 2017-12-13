@@ -19,10 +19,10 @@
         total_paid_fees = 0
 
         if !@student_fees.blank?
-          Student.all.each do |fee|
-            total_allocated_fees += fee.allocated_fee.to_f.round(2)
-            total_discount += fee.discount.to_f.round(2)
-            total_paid_fees += fee.total_paid.to_f.round(2)
+          @student_fees.each do |fee|
+            total_allocated_fees += fee.student.allocated_fee.to_f.round(2)
+            total_discount += fee.student.discount.to_f.round(2)
+            total_paid_fees += fee.student.total_paid.to_f.round(2)
           end
           total_balance_fee = (total_allocated_fees - total_discount) - total_paid_fees
         end

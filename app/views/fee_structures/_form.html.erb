@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <%= f.text_field :class, class: 'mdl-textfield__input', id: 'student_class' %>
+    <%= f.text_field :class, class: 'mdl-textfield__input', id: 'student_class', required: true %>
     <%= f.label :student_class, class: 'mdl-textfield__label', for: 'student_class' %>
   </div>
 
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <%= f.text_field :section, class: 'mdl-textfield__input', id: 'section' %>
+    <%= f.text_field :section, class: 'mdl-textfield__input', id: 'section', required: true %>
     <%= f.label :section, class: 'mdl-textfield__label', for: 'section' %>
   </div>
 
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <%= f.text_field :allocated_fee, class: 'mdl-textfield__input', id: 'allocated_fee' %>
+    <%= f.text_field :allocated_fee, class: 'mdl-textfield__input', id: 'allocated_fee', required: true %>
     <%= f.label :allocated_fee, class: 'mdl-textfield__label', for: 'allocated_fee' %>
   </div>
 
