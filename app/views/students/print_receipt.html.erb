@@ -1,4 +1,5 @@
 <%= link_to "<i class='material-icons'>keyboard_arrow_left</i> Back".html_safe, student_path(@payment.student), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent avoid-in-print' %>
+<%= link_to "Print", '#', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored avoid-in-print', onclick: 'window.print();' %>
 <div class="mdl-grid">
   <div class="mdl-layout-spacer"></div>
     <div >
@@ -34,9 +35,10 @@
   <div class="mdl-cell mdl-cell--6-col">
     <h6>
       Received With Thanks from <strong><%= @payment.student.first_name.upcase %> <%= @payment.student.father_name.upcase %> <%= @payment.student.last_name.upcase %></strong><br/>
-      The Sum of Rupees <strong><%= number_to_human(@payment.amount) %></strong> Only<br/>
-      By <strong><%= @payment.payment_method %></strong> <strong><%= @payment.payment_desc %></strong> <br/>
-      To Payment Of <strong><%= @payment.installment_no %></strong> Installment.
+      The Sum of Rupees <strong><%= I18n.with_locale(:en) { @payment.amount.to_f.round(2).to_words hundreds_with_union: true } %></strong> Only<br/>
+      By <strong><%= @payment.payment_method %></strong> <strong><%= @payment.payment_desc %></strong>. <br/>
+      Installment no. <strong><%= @payment.installment_no %></strong>.<br/>
+      Paid By: <strong><%= @payment.paid_by %></strong>.
     </h6>
   </div>
   <div class="mdl-layout-spacer"></div>

@@ -5,7 +5,11 @@
 </div>
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--3-col">
+    <div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
     <%= image_tag 'logo-dnyanjyoti.jpg', class: 'responsive', width: 239, height: 200 %>
+    <div class="mdl-layout-spacer"></div>
+    </div>
   </div>
   <div class="mdl-cell mdl-cell--6-col mdl-typography--text-center">
     <h4>KRISHA FOUNDATION'S</h4>
@@ -14,21 +18,25 @@
     <em>Contact No: <%= ClassInfo.first.contact_no %></em>
   </div>
   <div class="mdl-cell mdl-cell--3-col">
+    <div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
     <%= image_tag 'logo-krisha.jpg', class: 'responsive', width: 239, height: 200 %>
+    <div class="mdl-layout-spacer"></div>
+    </div>
   </div>
 </div>
 <br/>
 <div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--3-col">
+  <div class="mdl-cell mdl-cell--3-col mdl-typography--text-center">
     <%= link_to 'Students', students_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' %>
   </div>
-  <div class="mdl-cell mdl-cell--3-col">
+  <div class="mdl-cell mdl-cell--3-col mdl-typography--text-center">
     <%= link_to 'Office Expenses', office_expenses_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' %>
   </div>
-  <div class="mdl-cell mdl-cell--3-col">
+  <div class="mdl-cell mdl-cell--3-col mdl-typography--text-center">
     <%= link_to 'Fee Collection', student_fees_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' %>
   </div>
-  <div class="mdl-cell mdl-cell--3-col">
+  <div class="mdl-cell mdl-cell--3-col mdl-typography--text-center">
     <%= link_to 'Fee Structures', fee_structures_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' %>
   </div>
 </div>

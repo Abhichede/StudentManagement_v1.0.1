@@ -93,6 +93,8 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
+    numbers_and_words (0.11.3)
+      i18n
     orm_adapter (0.5.0)
     pg (0.21.0)
     puma (3.11.0)
@@ -187,6 +189,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   modernizr-rails
   mysql2 (>= 0.3.18, < 0.5)
+  numbers_and_words
   pg
   puma (~> 3.0)
   rails (~> 5.0.6)
