@@ -3,81 +3,72 @@
   <div class="mdl-cell mdl-cell--4-col">
     <h3 class="mdl-typography--text-center">Students</h3>
   </div>
-  <div class="mdl-cell mdl-cell--4-col" style="padding-top: 20px !important; float: right !important;">
-    <form action="<%= students_path %>" method="get">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="text" id="filter_by_query" name="query">
-        <label class="mdl-textfield__label" for="filter_by_query">Search</label>
-      </div>
-    </form>
-  </div>
-
-  <div class="mdl-cell mdl-cell--4-col">
-    <div class="mdl-typography--text-center" style="padding-top: 20px !important;">
-      <%= link_to 'New Student', new_student_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
-    </div>
-  </div>
 </div>
+
 
 <div class="mdl-grid">
   <div class="mdl-layout-spacer"></div>
-      <% if @students.blank? %>
-          <div class="mdl-cell mdl-cell--3-col">
-            <div class="demo-card-square mdl-card mdl-shadow--2dp demo-card-square-students">
-              <div class="mdl-card__title mdl-card--expand">
-                <h2 class="mdl-card__title-text ">
-                  Nothing Found
-                </h2>
-              </div>
+  <div class="" style="overflow: auto">
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="myTable">
+      <thead>
+
+      <tr>
+        <form action="<%= students_path %>">
+          <th colspan="3">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="filter_by_query" name="query" value="<%= params[:query] %>">
+              <label class="mdl-textfield__label" for="filter_by_query">Search</label>
             </div>
-          </div>
-      <% else%>
-        <% @students.each do |student| %>
-          <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
-            <div class="demo-card-square mdl-card mdl-shadow--2dp demo-card-square-students">
-              <div class="mdl-card__title mdl-card--expand">
-                <h2 class="mdl-card__title-text">
-                  <%= student.first_name %> <%= student.last_name %> <br/>(<%= student.student_class %> <%= student.division %>)
-                </h2>
-              </div>
-              <div class="mdl-card__supporting-text">
-                <ul class="demo-list-item mdl-list">
-                  <li class="mdl-list__item mdl-list__item--three-line" >
-                    <span class="mdl-list__item-primary-content">
-                      <span>Mobile No's</span>
-                      <span class="mdl-list__item-text-body">
-                        <%= student.mobile_no %><br/>
-                        <%= student.alternate_mobile %>
-                      </span>
-                    </span>
-                  </li>
-                  <li class="mdl-list__item mdl-list__item--two-line">
-                    <span class="mdl-list__item-primary-content">
-                      <span>Balance Amount</span>
-                      <span class="mdl-list__item-sub-title">
-                        &#8377; <%= number_to_indian_currency((student.allocated_fee.to_f - student.discount.to_f) - student.total_paid.to_f) %>
-                      </span>
-                    </span>
-                  </li>
-                </ul>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-                <%= link_to student,
-                            class: 'mdl-button mdl-js-button mdl-button--icon' do %>
-                    <i class="material-icons" id='tt_show_<%= student.id %>'>pageview</i>
-                <% end %>
-                <%= link_to edit_student_path(student),
-                            class: 'mdl-button mdl-js-button mdl-button--icon' do %>
-                    <i class="material-icons" id='tt_edit_<%= student.id %>' >mode_edit</i>
-                <% end %>
-                <%= link_to student, method: :delete, data: { confirm: 'Are you sure?' },
-                            class: 'mdl-button mdl-js-button mdl-button--icon' do %>
-                    <i class="material-icons" id='tt_delete_<%= student.id %>'>delete</i>
-                <% end %>
-                <%= link_to 'Pay Fee',  {controller: 'student_fees', action: 'new', student_id: student.id}, class: 'mdl-button mdl-js-button mdl-button--accent' %>
-              </div>
-            </div>
-          </div>
+          </th>
+          <th>
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Search</button>
+          </th>
+        </form>
+        <th>
+          <%= link_to 'New Student', new_student_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+        </th>
+        <th colspan="2"></th>
+      </tr>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">Name</th>
+        <th class="mdl-data-table__cell--non-numeric">Mobile No.</th>
+        <th class="mdl-data-table__cell--non-numeric">Balance Fee</th>
+        <th class="mdl-data-table__cell--non-numeric">View</th>
+        <th class="mdl-data-table__cell--non-numeric">Edit</th>
+        <th class="mdl-data-table__cell--non-numeric">Delete</th>
+        <th class="mdl-data-table__cell--non-numeric">Fee Collection</th>
+
+      </tr>
+      </thead>
+
+      <tbody style=" height: 20rem;">
+      <% @students.each do |student| %>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric"><%= student.first_name %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= student.mobile_no %></td>
+            <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency((student.allocated_fee.to_f - student.discount.to_f) - student.total_paid.to_f) %></td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= link_to student, class: 'mdl-button mdl-js-button mdl-button--icon' do %>
+                  <i class="material-icons" id='tt_show_<%= student.id %>'>pageview</i>
+              <% end %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= link_to edit_student_path(student),
+                          class: 'mdl-button mdl-js-button mdl-button--icon' do %>
+                  <i class="material-icons" id='tt_edit_<%= student.id %>' >mode_edit</i>
+              <% end %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= link_to student, method: :delete, data: { confirm: 'Are you sure?' },
+                          class: 'mdl-button mdl-js-button mdl-button--icon' do %>
+                  <i class="material-icons" id='tt_delete_<%= student.id %>'>delete</i>
+              <% end %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= link_to 'Pay Fee',  {controller: 'student_fees', action: 'new', student_id: student.id}, class: 'mdl-button mdl-js-button mdl-button--accent' %>
+            </td>
+          </tr>
+
           <div class="mdl-tooltip" data-mdl-for="tt_show_<%= student.id %>">
             <strong>View Student</strong>
           </div>
@@ -87,7 +78,9 @@
           <div class="mdl-tooltip" data-mdl-for="tt_delete_<%= student.id %>">
             <strong>Delete Student</strong>
           </div>
-        <% end %>
       <% end %>
+      </tbody>
+    </table>
+  </div>
   <div class="mdl-layout-spacer"></div>
 </div>

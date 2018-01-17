@@ -13,15 +13,13 @@
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--6-col">
       <div class="mdl-layout-spacer"></div>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-        <% if !params[:student_id].nil? %>
-          <%= f.text_field :student_id, class: 'mdl-textfield__input', id: 'student_select', value: params[:student_id], readonly: true %>
-          <%= f.label @student.first_name+ ' '+ @student.last_name, class: 'mdl-textfield__label', for: 'student_select' %>
-        <% else %>
-          <%= f.text_field :student_id, class: 'mdl-textfield__input', id: 'student_select', readonly: true %>
-          <%= f.label Student.find(params[:student_id]).first_name + ' ' + Student.find(params[:student_id]).last_name, class: 'mdl-textfield__label', for: 'student_select' %>
-        <% end %>
-      </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-dirty is-upgraded">
+          <label class="mdl-textfield__label" for="studentName">Student Name</label>
+          <input class="mdl-textfield__input" id="studentName" readonly="readonly" value="<%= "#{@student.first_name} #{@student.last_name}" %>" type="text">
+        </div>
+
+        <%= f.hidden_field :student_id, value: @student.id %>
+        <%= f.hidden_field :academic_year_id, value: @student.academic_year_id %>
       <div class="mdl-layout-spacer"></div>
     </div>
     <div class="mdl-cell mdl-cell--6-col">

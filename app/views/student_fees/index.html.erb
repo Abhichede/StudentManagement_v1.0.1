@@ -9,29 +9,28 @@
 
         <tr>
           <form action="<%= student_fees_path %>">
-          <th>
+          <th colspan="2">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="payment_start_date_div">
-              <label for="payment_start_date" class="mdl-textfield__label">Start</label>
-              <input type="text" name="start_date" id="payment_start_date" class="mdl-textfield__input" required>
+              <label for="payment_start_date" class="mdl-textfield__label">Academic Year</label>
+              <%= select_tag "academic_year_id", options_from_collection_for_select(AcademicYear.all, "id", "year"), class: 'mdl-textfield__input', style: 'color: #000' %>
 
-            </div>
-          </th>
-          <th>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="payment_end_date_div">
-              <label for="payment_end_date" class="mdl-textfield__label">End</label>
-              <input type="text" name="end_date" id="payment_end_date" class="mdl-textfield__input" required>
             </div>
           </th>
           <th>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="standard-div">
               <label for="standard" class="mdl-textfield__label">Standard</label>
               <input type="text" name="standard" id="standard" class="mdl-textfield__input">
-              <ul for="standard" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" id="">
-                <% if !FeeStructure.all.blank? %>
-                    <% FeeStructure.all.each do |types| %>
-                        <li class="mdl-menu__item" onclick="addListVal(this.innerHTML, 'standard');"><%= types.student_class %></li>
-                    <% end %>
-                <% end %>
+              <ul for="standard" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" id="list_dropdown">
+                <%
+                  avl_classes  = ['Class']
+                  FeeStructure.all.each do |fee_structure|
+                    if !avl_classes.include?(fee_structure.student_class)
+                      avl_classes.push(fee_structure.student_class) %>
+                      <li class="mdl-menu__item" onclick="addListVal(this.innerHTML, 'standard');"><%= fee_structure.student_class %></li>
+                    <%
+                      end
+                  end
+                %>
               </ul>
             </div>
           </th>
@@ -39,12 +38,17 @@
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="section-div">
               <label for="section" class="mdl-textfield__label">Section</label>
               <input type="text" name="section" id="section" class="mdl-textfield__input">
-              <ul for="section" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" id="">
-                <% if !FeeStructure.all.blank? %>
-                    <% FeeStructure.all.each do |types| %>
-                        <li class="mdl-menu__item" onclick="addListVal(this.innerHTML, 'section');"><%= types.section %></li>
-                    <% end %>
-                <% end %>
+              <ul for="section" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" id="list_dropdown">
+                <%
+                  avl_sections  = ['Section']
+                  FeeStructure.all.each do |fee_structure|
+                    if !avl_sections.include?(fee_structure.section)
+                      avl_sections.push(fee_structure.section) %>
+                      <li class="mdl-menu__item" onclick="addListVal(this.innerHTML, 'section');"><%= fee_structure.section %></li>
+                      <%
+                        end
+                  end
+                %>
               </ul>
             </div>
           </th>

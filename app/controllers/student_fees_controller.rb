@@ -4,12 +4,12 @@ class StudentFeesController < ApplicationController
   # GET /student_fees
   # GET /student_fees.json
   def index
-    if params[:start_date].nil? || params[:end_date].nil? || params[:standard].nil? || params[:section].nil?
+    if params[:academic_year_id].nil? || params[:standard].nil? || params[:section].nil?
       @student_fees = StudentFee.all
     elsif params[:standard] == '' || params[:section] == ''
-      @student_fees = StudentFee.where("payment_date BETWEEN ? AND ?", params[:start_date], params[:end_date])
+      @student_fees = StudentFee.where(:academic_year_id => params[:academic_year_id])
     else
-      @student_fees = StudentFee.where("payment_date BETWEEN ? AND ?", params[:start_date], params[:end_date]).joins(:student).where("lower(student_class) LIKE lower(?) AND lower(division) LIKE (?)", params[:standard], params[:section])
+      @student_fees = StudentFee.where(:academic_year_id => params[:academic_year_id]).joins(:student).where("lower(student_class) LIKE lower(?) AND lower(division) LIKE (?)", params[:standard], params[:section])
     end
 
     respond_to do |format|
@@ -32,6 +32,7 @@ class StudentFeesController < ApplicationController
   # GET /student_fees/1/edit
   def edit
     @students = Student.all
+    @student = Student.find(params[:student_id])
   end
 
   # POST /student_fees
@@ -107,6 +108,6 @@ class StudentFeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_fee_params
-      params.require(:student_fee).permit(:student_id, :payment_date, :installment_no, :amount, :payment_method, :payment_desc, :paid_by, :received_by)
+      params.require(:student_fee).permit(:student_id, :payment_date, :installment_no, :amount, :payment_method, :payment_desc, :paid_by, :received_by, :academic_year_id)
     end
 end

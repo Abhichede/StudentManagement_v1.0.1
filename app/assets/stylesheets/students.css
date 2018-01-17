@@ -116,3 +116,8 @@ table#myTable > tbody > tr > td{
     background-color: #46B6AC !important;
     color: #fff !important;
 }
+
+#list_dropdown{
+    max-height: 14rem;
+    overflow: auto;
+}

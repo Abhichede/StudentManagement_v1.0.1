@@ -15,26 +15,9 @@
     <div class="mdl-layout-spacer"></div>
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <%= f.text_field :first_name, class: 'mdl-textfield__input', required: true %>
-        <%= f.label :first_name, class: 'mdl-textfield__label' %>
+        <%= f.label :name, class: 'mdl-textfield__label' %>
       </div>
       <div class="mdl-layout-spacer"></div>
-    </div>
-    <div class="mdl-cell mdl-cell--6-col">
-    <div class="mdl-layout-spacer"></div>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <%= f.text_field :last_name, class: 'mdl-textfield__input', required: true %>
-      <%= f.label :last_name, class: 'mdl-textfield__label' %>
-    </div>
-    <div class="mdl-layout-spacer"></div>
-    </div>
-  </div>
-  <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--6-col">
-    <div class="mdl-layout-spacer"></div>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <%= f.text_field :father_name, class: 'mdl-textfield__input', required: true  %>
-        <%= f.label :father_name, class: 'mdl-textfield__label' %>
-      </div>
     </div>
     <div class="mdl-cell mdl-cell--6-col">
     <div class="mdl-layout-spacer"></div>
@@ -142,7 +125,7 @@
       <div class="mdl-layout-spacer"></div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="admission_date_div">
           <%= f.text_field :admission_date, id: 'admission_date',
-                           class: 'mdl-textfield__input', required: true  %>
+                           class: 'mdl-textfield__input'  %>
           <%= f.label :admission_date, class: 'mdl-textfield__label' %>
         </div>
       </div>
@@ -163,9 +146,8 @@
       <div class="mdl-cell mdl-cell--6-col">
       <div class="mdl-layout-spacer"></div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <%= f.select(:no_of_installments, options_for_select([['Installments'],['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
-                                                               :disabled => 'Installments', :selected=> @student.no_of_installments),
-                       {}, class: 'mdl-textfield__input', id: 'installment_no') %>
+          <%= f.text_field :no_of_installments, id: 'installment_no',
+                           class: 'mdl-textfield__input' %>
           <%= f.label :no_of_installments, class: 'mdl-textfield__label' %>
         </div>
       </div>
@@ -185,8 +167,8 @@
       <div class="mdl-cell mdl-cell--6-col">
         <div class="mdl-layout-spacer"></div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <%= f.select(:academic_year_ids, options_for_select( AcademicYear.all.map {|year| [year.year, year.id]},
-                                                               :disabled => '', :selected=> @student.academic_years.last),
+          <%= f.select(:academic_year_id, options_for_select( AcademicYear.all.map {|year| [year.year, year.id]}, :include_blank => 'year',
+                                                               :disabled => 'year', :selected=> @student.academic_year_id),
                        {}, class: 'mdl-textfield__input', id: 'academic_year') %>
           <%= f.label :academic_year_id, class: 'mdl-textfield__label' %>
         </div>
