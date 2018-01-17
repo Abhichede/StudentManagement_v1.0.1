@@ -7,9 +7,9 @@ class StudentsController < ApplicationController
     if !params[:query].nil?
       @students = Student.where("lower(first_name) LIKE lower(?) OR lower(last_name) LIKE lower(?) OR lower(college_name) LIKE lower(?) OR lower(student_class) LIKE lower(?) OR lower(division) LIKE (?) ", "%#{params[:query]}%",
                                 "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%",
-                                "%#{params[:query]}%")
+                                "%#{params[:query]}%").order(:created_at => "DESC")
     else
-      @students = Student.all
+      @students = Student.all.order(:created_at => 'DESC')
     end
   end
 

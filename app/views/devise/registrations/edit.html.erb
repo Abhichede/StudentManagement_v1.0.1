@@ -35,12 +35,14 @@
       <%= f.password_field :password_confirmation, class: 'mdl-textfield__input', autocomplete: "off" %>
     </div>
 
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <%= f.select(:role, options_for_select([['Role'],['ADMIN','ADMIN'],['EDITOR','EDITOR']],
-                                             :disabled => 'Role'),
-                   {}, class: 'mdl-textfield__input') %>
-      <%= f.label :role, class: 'mdl-textfield__label' %>
-    </div>
+    <% if current_user.role === "ADMIN" %>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <%= f.select(:role, options_for_select([['Role'],['ADMIN','ADMIN'],['EDITOR','EDITOR']],
+                                               :disabled => 'Role'),
+                     {}, class: 'mdl-textfield__input') %>
+        <%= f.label :role, class: 'mdl-textfield__label' %>
+      </div>
+    <% end %>
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <%= f.label :current_password, class: 'mdl-textfield__label' %>

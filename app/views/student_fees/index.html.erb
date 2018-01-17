@@ -1,6 +1,8 @@
-<div class="mdl-cell--12-col mdl-typography--text-center">
-  <h3>Student Fees</h3>
-</div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $('#page_name').replaceWith("<span id='page_name'> - Fee Collection</span>")
+    });
+</script>
 <div class="mdl-grid">
   <div class="mdl-layout-spacer mdl-cell mdl-cell--1-col"></div>
   <div class="table-container mdl-cell mdl-cell--11-col" style="overflow: auto">
@@ -96,6 +98,7 @@
   total_allocated_fees = 0
   total_discount = 0
   total_paid_fees = 0
+  total_balance_fee = 0
 
   if !@student_fees.blank?
     @student_fees.each do |fee|

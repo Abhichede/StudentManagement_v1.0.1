@@ -87,6 +87,25 @@ table#myTable > tbody > tr > td{
     word-wrap: break-word;
 }
 
+#myTable_students > tbody {
+    display:block;
+    max-height: 35rem;
+    overflow:auto;
+}
+#myTable_students > thead, #myTable_students > tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;/* even columns width , fix width of table too*/
+}
+table#myTable_students {
+    width:80rem;
+}
+
+table#myTable_students > tbody > tr > td{
+    white-space: normal;
+    word-wrap: break-word;
+}
+
 /* ************************** print methods *******************************/
 @media print {
     .avoid-in-print{

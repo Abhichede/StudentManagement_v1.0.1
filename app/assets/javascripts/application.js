@@ -28,3 +28,7 @@ $(function () {
         $("#spinner").show();
     };
 });
+
+$(document).ready(function () {
+    $('#page_name').replaceWith("<span id='page_name'></span>")
+});

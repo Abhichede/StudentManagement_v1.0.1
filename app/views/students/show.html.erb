@@ -1,14 +1,10 @@
 <%= link_to "<i class='material-icons'>keyboard_arrow_left</i> Back".html_safe, students_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent' %>
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--4-col">
-    <h3><%= @student.first_name %> <%= @student.last_name %></h3>
+    <h3><%= @student.first_name %></h3>
     <div style="overflow: auto">
       <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
         <tbody>
-        <tr>
-          <th>Father name</th>
-          <td class="mdl-data-table__cell--non-numeric"><%= @student.father_name %></td>
-        </tr>
         <tr>
           <th>Father occupation</th>
           <td class="mdl-data-table__cell--non-numeric"><%= @student.father_occupation %></td>
@@ -46,6 +42,14 @@
         <tr>
           <th>Admission date</th>
           <td class="mdl-data-table__cell--non-numeric"><%= @student.admission_date %></td>
+        </tr>
+        <tr>
+          <th>Academic Year</th>
+          <td class="mdl-data-table__cell--non-numeric"><%= if !@student.academic_year.nil?
+                                                              @student.academic_year.year
+                                                            else
+                                                              "Academic year is not selected"
+                                                            end %></td>
         </tr>
         <tr>
           <th>Actions</th>
