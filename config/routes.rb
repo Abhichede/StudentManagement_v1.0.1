@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :academic_years
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :office_expenses
   resources :fee_structures

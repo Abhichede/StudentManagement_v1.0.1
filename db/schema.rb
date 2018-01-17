@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171209173358) do
+ActiveRecord::Schema.define(version: 20180117072419) do
+
+  create_table "academic_years", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "start_month"
+    t.string   "start_year"
+    t.string   "end_month"
+    t.string   "end_year"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "academic_years_students", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "student_id",       null: false
+    t.integer "academic_year_id", null: false
+    t.index ["academic_year_id", "student_id"], name: "index_academic_years_students_on_academic_year_id_and_student_id", using: :btree
+    t.index ["student_id", "academic_year_id"], name: "index_academic_years_students_on_student_id_and_academic_year_id", using: :btree
+  end
 
   create_table "class_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "class_name"
@@ -49,7 +65,7 @@ ActiveRecord::Schema.define(version: 20171209173358) do
   end
 
   create_table "student_fees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "student_id",     null: false
+    t.integer  "student_id",       null: false
     t.string   "payment_date"
     t.string   "installment_no"
     t.string   "amount"
@@ -57,8 +73,9 @@ ActiveRecord::Schema.define(version: 20171209173358) do
     t.string   "payment_desc"
     t.string   "paid_by"
     t.string   "received_by"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "academic_year_id"
   end
 
   create_table "students", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

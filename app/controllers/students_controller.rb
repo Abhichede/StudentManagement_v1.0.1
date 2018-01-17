@@ -123,6 +123,6 @@ class StudentsController < ApplicationController
                                       :date_of_birth, :college_name, :student_class,
                                       :admission_date, :division, :allocated_fee,
                                       :total_paid, :no_of_installments, :discount,
-                                      :alternate_mobile)
+                                      :alternate_mobile, {:academic_year_ids => []})
     end
 end

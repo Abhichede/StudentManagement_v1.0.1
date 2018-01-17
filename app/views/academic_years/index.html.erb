@@ -1,0 +1,85 @@
+<div class="mdl-cell--12-col mdl-typography--text-center">
+  <h3>Academic Years</h3>
+</div>
+<div class="mdl-grid">
+  <div class="mdl-layout-spacer mdl-cell mdl-cell--1-col"></div>
+  <div class="table-container mdl-cell mdl-cell--11-col" style="overflow: auto">
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="myTable">
+      <thead>
+      <tr>
+        <%= form_for(@academic_year) do |f| %>
+            <th class="mdl-data-table__cell--non-numeric">
+              <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <%= f.text_field :start_month, class: 'mdl-textfield__input' %>
+                <%= f.label :start_month, class: 'mdl-textfield__label' %>
+              </div>
+            </th>
+
+            <th class="mdl-data-table__cell--non-numeric">
+              <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <%= f.text_field :start_year, class: 'mdl-textfield__input' %>
+                <%= f.label :start_year, class: 'mdl-textfield__label' %>
+              </div>
+            </th>
+
+            <th class="mdl-data-table__cell--non-numeric">
+              <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <%= f.text_field :end_month, class: 'mdl-textfield__input' %>
+                <%= f.label :end_month, class: 'mdl-textfield__label' %>
+              </div>
+            </th>
+
+            <th class="mdl-data-table__cell--non-numeric">
+              <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <%= f.text_field :end_year, class: 'mdl-textfield__input' %>
+                <%= f.label :end_year, class: 'mdl-textfield__label' %>
+              </div>
+            </th>
+
+            <th class="actions mdl-data-table__cell--non-numeric">
+              <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+            </th>
+            <th></th>
+        <% end %>
+      </tr>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">Start Month</th>
+        <th class="mdl-data-table__cell--non-numeric">Start Year</th>
+        <th class="mdl-data-table__cell--non-numeric">End Month</th>
+        <th class="mdl-data-table__cell--non-numeric">End Year</th>
+        <th colspan="2"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @academic_years.each do |academic_year| %>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric"><%= academic_year.start_month %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= academic_year.start_year %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= academic_year.end_month %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= academic_year.end_year %></td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= link_to edit_academic_year_path(academic_year),
+                          class: 'mdl-button mdl-js-button mdl-button--icon' do %>
+                  <i class="material-icons" id='tt_edit_<%= academic_year.id %>' >mode_edit</i>
+              <% end %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= link_to academic_year, method: :delete, data: { confirm: 'Are you sure?' },
+                          class: 'mdl-button mdl-js-button mdl-button--icon' do %>
+                  <i class="material-icons" id='tt_delete_<%= academic_year.id %>'>delete</i>
+              <% end %>
+            </td>
+          </tr>
+
+          <div class="mdl-tooltip" data-mdl-for="tt_edit_<%= academic_year.id %>">
+            <strong>Edit</strong>
+          </div>
+          <div class="mdl-tooltip" data-mdl-for="tt_delete_<%= academic_year.id %>">
+            <strong>Delete</strong>
+          </div>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

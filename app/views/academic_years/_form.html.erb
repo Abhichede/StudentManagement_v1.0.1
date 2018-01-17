@@ -1,0 +1,46 @@
+<%= form_for(academic_year) do |f| %>
+  <% if academic_year.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(academic_year.errors.count, "error") %> prohibited this academic_year from being saved:</h2>
+
+      <ul>
+      <% academic_year.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+        <!--<th class="mdl-data-table__cell&#45;&#45;non-numeric">-->
+          <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <%= f.text_field :start_month, class: 'mdl-textfield__input' %>
+            <%= f.label :start_month, class: 'mdl-textfield__label' %>
+          </div>
+        <!--</th>-->
+
+        <!--<th class="mdl-data-table__cell&#45;&#45;non-numeric">-->
+          <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <%= f.text_field :start_year, class: 'mdl-textfield__input' %>
+            <%= f.label :start_year, class: 'mdl-textfield__label' %>
+          </div>
+        <!--</th>-->
+
+        <!--<th class="mdl-data-table__cell&#45;&#45;non-numeric">-->
+          <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <%= f.text_field :end_month, class: 'mdl-textfield__input' %>
+            <%= f.label :end_month, class: 'mdl-textfield__label' %>
+          </div>
+        <!--</th>-->
+
+        <!--<th class="mdl-data-table__cell&#45;&#45;non-numeric">-->
+          <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <%= f.text_field :end_year, class: 'mdl-textfield__input' %>
+            <%= f.label :end_year, class: 'mdl-textfield__label' %>
+          </div>
+        <!--</th>-->
+
+        <!--<th class="actions mdl-data-table__cell&#45;&#45;non-numeric">-->
+          <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+        <!--</th>-->
+
+<% end %>

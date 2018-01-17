@@ -180,6 +180,19 @@
         </div>
       </div>
     </div>
+
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--6-col">
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <%= f.select(:academic_year_ids, options_for_select( AcademicYear.all.map {|year| [year.year, year.id]},
+                                                               :disabled => '', :selected=> @student.academic_years.last),
+                       {}, class: 'mdl-textfield__input', id: 'academic_year') %>
+          <%= f.label :academic_year_id, class: 'mdl-textfield__label' %>
+        </div>
+      </div>
+    </div>
+
   <div class="mdl-grid">
     <div class="mdl-layout-spacer"></div>
     <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Submit" />
