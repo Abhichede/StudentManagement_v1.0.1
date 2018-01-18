@@ -3,8 +3,9 @@
         $('#page_name').replaceWith("<span id='page_name'> - Fee Collection</span>")
     });
 </script>
+<%= link_to "<i class='material-icons'>keyboard_arrow_left</i> Back".html_safe, :back, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent' %>
 <div class="mdl-grid">
-  <div class="mdl-layout-spacer mdl-cell mdl-cell--1-col"></div>
+  <div class="mdl-layout-spacer mdl-cell mdl-cell--1-col "></div>
   <div class="table-container mdl-cell mdl-cell--11-col" style="overflow: auto">
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="myTable">
       <thead>
@@ -77,7 +78,7 @@
       <tbody style=" height: 20rem;">
         <% @student_fees.each do |student_fee| %>
           <tr>
-            <td class="mdl-data-table__cell--non-numeric"><%= link_to student_fee.student.first_name.upcase + ' ' + student_fee.student.last_name.upcase, student_path(student_fee.student) %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= link_to student_fee.student.first_name.upcase, student_path(student_fee.student) %></td>
             <td class="mdl-data-table__cell--non-numeric"><%= student_fee.payment_date %></td>
             <td class="mdl-data-table__cell--non-numeric"><%= student_fee.installment_no %></td>
             <td class="mdl-data-table__cell--non-numeric"><%= student_fee.amount %></td>

@@ -4,12 +4,12 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    if !params[:query].nil?
-      @students = Student.where("lower(first_name) LIKE lower(?) OR lower(last_name) LIKE lower(?) OR lower(college_name) LIKE lower(?) OR lower(student_class) LIKE lower(?) OR lower(division) LIKE (?) ", "%#{params[:query]}%",
-                                "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%",
-                                "%#{params[:query]}%").order(:created_at => "DESC")
-    else
-      @students = Student.all.order(:created_at => 'DESC')
+    if !params[:query].nil? && !params[:standard].nil? && !params[:section].nil?
+      @students = Student.where("lower(first_name) LIKE lower(?) AND lower(student_class) LIKE lower(?) AND lower(division) LIKE (?) ", "%#{params[:query]}%",
+                                "%#{params[:standard]}%", "%#{params[:section]}%").order(:created_at => "DESC")
+    elsif !params[:standard].nil? && !params[:section].nil?
+      @students = Student.where("lower(student_class) LIKE lower(?) AND lower(division) LIKE (?) ", "%#{params[:standard]}%",
+                                "%#{params[:section]}%").order(:created_at => "DESC")
     end
   end
 
@@ -107,6 +107,10 @@ class StudentsController < ApplicationController
 
   def print_receipt
     @payment = StudentFee.find(params[:id])
+  end
+
+  def dashboard
+    @fee_structures = FeeStructure.all
   end
 
   private

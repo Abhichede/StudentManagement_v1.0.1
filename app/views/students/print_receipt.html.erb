@@ -34,7 +34,7 @@
   <div class="mdl-layout-spacer"></div>
   <div class="mdl-cell mdl-cell--6-col">
     <h6>
-      Received With Thanks from <strong><%= @payment.student.first_name.upcase %> <%= @payment.student.father_name.upcase %> <%= @payment.student.last_name.upcase %></strong><br/>
+      Received With Thanks from <strong><%= @payment.student.first_name.upcase %></strong><br/>
       The Sum of Rupees <strong><%= I18n.with_locale(:en) { @payment.amount.to_f.round(2).to_words hundreds_with_union: true } %></strong> Only<br/>
       By <strong><%= @payment.payment_method %></strong> <strong><%= @payment.payment_desc %></strong>. <br/>
       Installment no. <strong><%= @payment.installment_no %></strong>.<br/>

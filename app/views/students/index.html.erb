@@ -3,6 +3,7 @@
      $('#page_name').replaceWith("<span id='page_name'> - Students</span>")
   });
 </script>
+<%= link_to "<i class='material-icons'>keyboard_arrow_left</i> Back".html_safe, student_dashboard_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent' %>
 <div class="mdl-grid">
   <div class="mdl-layout-spacer"></div>
   <div class="" style="overflow: auto">
@@ -16,6 +17,8 @@
               <input class="mdl-textfield__input" type="text" id="filter_by_query" name="query" value="<%= params[:query] %>">
               <label class="mdl-textfield__label" for="filter_by_query">Search</label>
             </div>
+            <input type="hidden" name="standard" value="<%= params[:standard] %>">
+            <input type="hidden" name="section" value="<%= params[:section] %>">
           </th>
           <th>
             <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Search</button>
