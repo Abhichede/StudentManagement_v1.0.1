@@ -71,7 +71,7 @@ class StudentsController < ApplicationController
     
     respond_to do |format|
 
-      format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
+      format.html { redirect_to student_dashboard_path, notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

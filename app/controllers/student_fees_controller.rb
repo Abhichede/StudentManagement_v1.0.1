@@ -9,7 +9,7 @@ class StudentFeesController < ApplicationController
     elsif params[:standard] == '' || params[:section] == ''
       @student_fees = StudentFee.where(:academic_year_id => params[:academic_year_id])
     else
-      @student_fees = StudentFee.where(:academic_year_id => params[:academic_year_id]).joins(:student).where("lower(student_class) LIKE lower(?) AND lower(division) LIKE (?)", params[:standard], params[:section])
+      @student_fees = StudentFee.where(:academic_year_id => params[:academic_year_id]).joins(:student).where("student_class = ? AND division = ?", params[:standard], params[:section])
     end
 
     respond_to do |format|

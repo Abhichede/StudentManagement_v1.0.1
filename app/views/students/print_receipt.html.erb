@@ -45,11 +45,11 @@
 </div>
 <div class="mdl-grid">
   <div class="mdl-layout-spacer"></div>
-  <h5><strong>Total: <%= @payment.student.allocated_fee %> /-</strong></h5>
+  <h5><strong>Total: <%= @payment.student.allocated_fee.to_f.round(2) - @payment.student.discount.to_f.round(2) %> /-</strong></h5>
   <div class="mdl-layout-spacer"></div>
   <h5><strong>Paid: <%= @payment.student.total_paid %> /-</strong></h5>
   <div class="mdl-layout-spacer"></div>
-  <h5><strong>Balance: <%= @payment.student.allocated_fee.to_f.round(2) - @payment.student.total_paid.to_f.round(2) %> /-</strong></h5>
+  <h5><strong>Balance: <%= (@payment.student.allocated_fee.to_f.round(2) - @payment.student.discount.to_f.round(2)) - @payment.student.total_paid.to_f.round(2) %> /-</strong></h5>
   <div class="mdl-layout-spacer"></div>
 </div>
 <br/>
@@ -69,7 +69,6 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function () {
-
    window.print();
   });
 </script>
