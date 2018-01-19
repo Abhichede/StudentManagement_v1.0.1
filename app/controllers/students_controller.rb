@@ -5,10 +5,10 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     if !params[:query].nil? && !params[:standard].nil? && !params[:section].nil?
-      @students = Student.where("lower(first_name) LIKE lower(?) AND lower(student_class) = lower(?) AND lower(division) = (?)", "%#{params[:query]}%",
+      @students = Student.where("lower(first_name) LIKE lower(?) AND student_class = ? AND division = ?", "%#{params[:query]}%",
                                 "#{params[:standard]}", "#{params[:section]}").order(:created_at => "DESC")
     elsif !params[:standard].nil? && !params[:section].nil?
-      @students = Student.where("lower(student_class) = lower(?) AND lower(division) = (?) ", "#{params[:standard]}",
+      @students = Student.where("student_class = ? AND division = ?", "#{params[:standard]}",
                                 "#{params[:section]}").order(:created_at => "DESC")
     end
   end
