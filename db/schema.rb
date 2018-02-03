@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20180117084153) do
     t.string   "mother_name"
     t.text     "address",            limit: 65535
     t.string   "mobile_no"
-    t.date     "date_of_birth"
+    t.string   "date_of_birth"
     t.string   "college_name"
     t.string   "student_class"
     t.string   "admission_date"

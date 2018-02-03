@@ -15,7 +15,7 @@
     </div>
   <div class="mdl-layout-spacer"></div>
     <div  >
-      <%= image_tag 'logo-krisha.jpg', class: 'responsive', width: 100, height: 100 %>
+      <%= image_tag 'logo-krisha.png', class: 'responsive', width: 100, height: 100 %>
     </div>
   <div class="mdl-layout-spacer"></div>
 </div>
@@ -34,22 +34,45 @@
   <div class="mdl-layout-spacer"></div>
   <div class="mdl-cell mdl-cell--6-col">
     <h6>
-      Received With Thanks from <strong><%= @payment.student.first_name.upcase %></strong><br/>
-      The Sum of Rupees <strong><%= I18n.with_locale(:en) { @payment.amount.to_f.round(2).to_words hundreds_with_union: true } %></strong> Only<br/>
-      By <strong><%= @payment.payment_method %></strong> <strong><%= @payment.payment_desc %></strong>. <br/>
-      Installment no. <strong><%= @payment.installment_no %></strong>.<br/>
-      Paid By: <strong><%= @payment.paid_by %></strong>.
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td>Received With Thanks from:</td>
+            <th><%= @payment.student.first_name.upcase %></th>
+          </tr>
+          <tr>
+            <td>The Sum of Rupees:</td>
+            <th>&#8377; <%= @payment.amount.to_f %></th>
+          </tr>
+          <tr>
+            <td>Payment Mode: </td>
+            <th><%= @payment.payment_method %></th>
+          </tr>
+          <tr>
+            <td>Payment Description: </td>
+            <th><%= @payment.payment_desc %></th>
+          </tr>
+          <tr>
+            <td>Installment no: </td>
+            <th><%= @payment.installment_no %></th>
+          </tr>
+          <tr>
+            <td>Paid By: </td>
+            <th><%= @payment.paid_by %></th>
+          </tr>
+        </tbody>
+      </table>
     </h6>
   </div>
   <div class="mdl-layout-spacer"></div>
 </div>
 <div class="mdl-grid">
   <div class="mdl-layout-spacer"></div>
-  <h5><strong>Total: <%= @payment.student.allocated_fee.to_f.round(2) - @payment.student.discount.to_f.round(2) %> /-</strong></h5>
+  <h5><strong>Total: &#8377; <%= @payment.student.allocated_fee.to_f.round(2) - @payment.student.discount.to_f.round(2) %> /-</strong></h5>
   <div class="mdl-layout-spacer"></div>
-  <h5><strong>Paid: <%= @payment.student.total_paid %> /-</strong></h5>
+  <h5><strong>Paid: &#8377; <%= @payment.student.total_paid %> /-</strong></h5>
   <div class="mdl-layout-spacer"></div>
-  <h5><strong>Balance: <%= (@payment.student.allocated_fee.to_f.round(2) - @payment.student.discount.to_f.round(2)) - @payment.student.total_paid.to_f.round(2) %> /-</strong></h5>
+  <h5><strong>Balance: &#8377; <%= (@payment.student.allocated_fee.to_f.round(2) - @payment.student.discount.to_f.round(2)) - @payment.student.total_paid.to_f.round(2) %> /-</strong></h5>
   <div class="mdl-layout-spacer"></div>
 </div>
 <br/>
