@@ -25,7 +25,9 @@
           </th>
         </form>
         <th>
-          <%= link_to 'New Student', new_student_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+          <%= link_to 'New Student', {controller: 'students', action: 'new',
+                                      standard: params[:standard], section: params[:section] },
+                      class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
         </th>
         <th colspan="2"></th>
       </tr>
@@ -58,10 +60,10 @@
               <% end %>
             </td>
             <td class="mdl-data-table__cell--non-numeric">
-              <%= link_to edit_student_path(student),
-                          class: 'mdl-button mdl-js-button mdl-button--icon' do %>
-                  <i class="material-icons" id='tt_edit_<%= student.id %>' >mode_edit</i>
-              <% end %>
+              <%= link_to "<i class='material-icons' id='tt_edit_#{student.id}' >mode_edit</i>".html_safe,
+                           {controller: 'students', action: 'edit', standard: params[:standard],
+                            section: params[:section], id: student},
+                           {class: 'mdl-button mdl-js-button mdl-button--icon'} %>
             </td>
             <td class="mdl-data-table__cell--non-numeric">
               <%= link_to student, method: :delete, data: { confirm: 'Are you sure?' },

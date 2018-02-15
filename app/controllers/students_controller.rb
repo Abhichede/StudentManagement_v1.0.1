@@ -67,11 +67,15 @@ class StudentsController < ApplicationController
     @student.student_fees.each do |fee|
       fee.destroy
     end
+    student_class = @student.student_class
+    student_section = @student.division
     @student.destroy
     
     respond_to do |format|
 
-      format.html { redirect_to student_dashboard_path, notice: 'Student was successfully destroyed.' }
+      format.html { redirect_to controller: 'students', action: 'index',
+                                standard: student_class, section: student_section,
+                                notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

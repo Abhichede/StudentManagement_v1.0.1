@@ -29,7 +29,7 @@
       %>
       <% @student_fees.each do |fee| %>
           <Row>
-            <Cell><Data ss:Type="String"><%= fee.student.first_name + ' ' + fee.student.last_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.student.first_name %></Data></Cell>
             <Cell><Data ss:Type="String"><%= fee.payment_date %></Data></Cell>
             <Cell><Data ss:Type="String"><%= fee.installment_no %></Data></Cell>
             <Cell><Data ss:Type="Number"><%= fee.amount %></Data></Cell>
