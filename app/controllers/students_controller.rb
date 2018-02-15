@@ -16,6 +16,7 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
+    @pre_student_garbage = PreStudentGarbage.new
   end
 
   # GET /students/new
@@ -131,6 +132,6 @@ class StudentsController < ApplicationController
                                       :date_of_birth, :college_name, :student_class,
                                       :admission_date, :division, :allocated_fee,
                                       :total_paid, :no_of_installments, :discount,
-                                      :alternate_mobile, :academic_year_id)
+                                      :alternate_mobile, :academic_year_id, :profile_photo)
     end
 end

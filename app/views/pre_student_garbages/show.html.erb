@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Academic year:</strong>
+  <%= @pre_student_garbage.academic_year_id %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @pre_student_garbage.student_id %>
+</p>
+
+<p>
+  <strong>Fee structure:</strong>
+  <%= @pre_student_garbage.fee_structure_id %>
+</p>
+
+<p>
+  <strong>Allocated fee:</strong>
+  <%= @pre_student_garbage.allocated_fee %>
+</p>
+
+<p>
+  <strong>Paid fee:</strong>
+  <%= @pre_student_garbage.paid_fee %>
+</p>
+
+<p>
+  <strong>Balance fee:</strong>
+  <%= @pre_student_garbage.balance_fee %>
+</p>
+
+<%= link_to 'Edit', edit_pre_student_garbage_path(@pre_student_garbage) %> |
+<%= link_to 'Back', pre_student_garbages_path %>

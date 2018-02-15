@@ -6,7 +6,10 @@
   <div class="mdl-cell mdl-cell--4-col">
     <h3><%= @student.first_name %></h3>
     <div style="overflow: auto">
-      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+      <div class="mdl-typography--text-center">
+        <%= image_tag @student.profile_photo.blank? ? 'user.png' : @student.profile_photo, :width => 150, :height => 150, class: 'img-circle' %>
+      </div>
+      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="table_stud_profile">
         <tbody>
         <tr>
           <th>Father occupation</th>
@@ -57,7 +60,8 @@
         <tr>
           <th>Actions</th>
           <td class="mdl-data-table__cell--non-numeric">
-            <%= link_to 'Edit', edit_student_path(@student), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+            <%= link_to 'Edit', {controller: 'students', action: 'edit', standard: @student.student_class,
+                                 section: @student.division, id: @student}, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
           </td>
         </tr>
         </tbody>
@@ -66,19 +70,67 @@
   </div>
   <div class="mdl-cell mdl-cell--8-col">
     <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone">
+      <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-phone">
         <h4>PAYMENT INFO.</h4>
       </div>
-      <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone" style="padding-top: 1rem">
+      <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-phone" style="padding-top: 1rem">
         <%= link_to 'Pay Fee', {controller: 'student_fees', action: 'new', student_id: @student.id}, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
       </div>
-      <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone" style="padding-top: 1rem">
+      <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-phone" style="padding-top: 1rem">
+        <button id="show-transfer-dialog" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+          Transfer
+        </button>
+      </div>
+      <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-phone" style="padding-top: 1rem">
         <button id="show-dialog" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Add Discount</button>
       </div>
     </div>
+
     <div class="mdl-cell mdl-cell--12-col">
       <div style="overflow: auto">
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <div>
+          <h5>PREVIOUS</h5>
+        </div>
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%">
+          <thead class="students-table">
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Academic Year</th>
+            <th class="mdl-data-table__cell--non-numeric">Class</th>
+            <th class="mdl-data-table__cell--non-numeric">Division/section</th>
+            <th class="mdl-data-table__cell--non-numeric">Allocated fee</th>
+            <th class="mdl-data-table__cell--non-numeric">Paid Fee</th>
+            <th class="mdl-data-table__cell--non-numeric">Balance fee</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% if @student.pre_student_garbages.nil? %>
+              <tr>
+                <td colspan="8" class="mdl-data-table__cell--non-numeric">No previous record</td>
+              </tr>
+          <% else %>
+              <% @student.pre_student_garbages.each do |student_fee| %>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric"><%= student_fee.academic_year.year %></td>
+                    <td class="mdl-data-table__cell--non-numeric"><%= student_fee.fee_structure.student_class %></td>
+                    <td class="mdl-data-table__cell--non-numeric"><%= student_fee.fee_structure.section %></td>
+                    <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(student_fee.allocated_fee) %></td>
+                    <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(student_fee.paid_fee) %></td>
+                    <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency(student_fee.balance_fee) %></td>
+                  </tr>
+              <% end %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--12-col">
+      <div style="overflow: auto">
+        <div>
+          <h5>CURRENT</h5>
+        </div>
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%">
           <thead class="students-table">
           <tr>
             <th class="mdl-data-table__cell--non-numeric">Payment date</th>
@@ -93,12 +145,12 @@
           </thead>
 
           <tbody>
-          <% if @student.student_fees.all.blank? %>
+          <% if @student.student_fees.where(academic_year_id: @student.academic_year.id).all.blank? %>
               <tr>
-                <td colspan="7" class="mdl-data-table__cell--non-numeric">NOTHING TO SHOW</td>
+                <td colspan="8" class="mdl-data-table__cell--non-numeric">NOTHING TO SHOW</td>
               </tr>
           <% else %>
-              <% @student.student_fees.each do |student_fee| %>
+              <% @student.student_fees.where(academic_year_id: @student.academic_year.id).each do |student_fee| %>
                   <tr>
                     <td class="mdl-data-table__cell--non-numeric"><%= student_fee.payment_date %></td>
                     <td class="mdl-data-table__cell--non-numeric"><%= student_fee.installment_no %></td>
@@ -136,7 +188,7 @@
             </tr>
             <tr>
               <th>Balance Fee</th>
-              <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency((@student.allocated_fee.to_f.round(2) - @student.discount.to_f.round(2)) - @student.total_paid.to_f.round(2)) %></td>
+              <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency((previous_balance + @student.allocated_fee.to_f.round(2) - @student.discount.to_f.round(2)) - @student.total_paid.to_f.round(2)) %></td>
             </tr>
             </tbody>
           </table>
@@ -163,16 +215,79 @@
     </div>
   </form>
 </dialog>
+
+<dialog class="mdl-dialog" id="transfer_student">
+  <h5 class="mdl-dialog__title">Transfer</h5>
+  <%= form_for(@pre_student_garbage) do |f| %>
+      <% if @pre_student_garbage.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@pre_student_garbage.errors.count, "error") %> prohibited this pre_student_garbage from being saved:</h2>
+
+            <ul>
+              <% @pre_student_garbage.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <%= f.hidden_field :academic_year_id, value: @student.academic_year.id %>
+      <%= f.hidden_field :student_id, value: @student.id %>
+      <%= f.hidden_field :fee_structure_id, value: FeeStructure.where(student_class: @student.student_class, section: @student.division).limit(1).first.id %>
+      <%= f.hidden_field :allocated_fee, value: @student.allocated_fee.to_f %>
+      <%= f.hidden_field :paid_fee, value: @student.total_paid.to_f %>
+      <%= f.hidden_field :balance_fee, value: ((@student.allocated_fee.to_f.round(2) - @student.discount.to_f.round(2)) - @student.total_paid.to_f.round(2))%>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <%= f.select(:new_academic_year, options_for_select(AcademicYear.where.not(id: @student.pre_student_garbages.map {|p| p.academic_year.id}).all.map { |f| [f.year, f.id] }),
+                     {}, class: 'mdl-textfield__input', id: 'student_academic_year') %>
+        <%= f.label :new_academic_year, class: 'mdl-textfield__label', for: 'student_academic_year' %>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <%= f.select(:new_student_class, options_for_select(FeeStructure.all.map { |f| [f.structure, f.id] }),
+                     {}, class: 'mdl-textfield__input', id: 'student_class') %>
+        <%= f.label :new_student_class, class: 'mdl-textfield__label', for: 'student_class' %>
+      </div>
+
+      <div class="mdl-dialog__actions">
+        <button type="submit" class="mdl-button" data-confirm="Are you sure?">Submit</button>
+        <button type="button" class="mdl-button close">Close</button>
+      </div>
+  <% end %>
+</dialog>
 <script>
-    var dialog = document.querySelector('dialog');
+    var dialog = document.querySelector('#discount-dialog');
+    var transferDialog = document.querySelector('#transfer_student');
     var showDialogButton = document.querySelector('#show-dialog');
+
+    var showTransferDialogButton = document.querySelector('#show-transfer-dialog');
     if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
     }
+
+
     showDialogButton.addEventListener('click', function() {
         dialog.showModal();
     });
+
+
+    if (! transferDialog.showModal) {
+        dialogPolyfill.registerDialog(transferDialog);
+    }
+
+
+    showTransferDialogButton.addEventListener('click', function() {
+        transferDialog.showModal();
+    });
+
+
     dialog.querySelector('.close').addEventListener('click', function() {
         dialog.close();
+    });
+
+
+    transferDialog.querySelector('.close').addEventListener('click', function() {
+        transferDialog.close();
     });
 </script>

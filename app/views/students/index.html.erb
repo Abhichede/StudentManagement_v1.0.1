@@ -32,6 +32,7 @@
         <th colspan="2"></th>
       </tr>
       <tr>
+        <th class="mdl-data-table__cell--non-numeric">Profile</th>
         <th class="mdl-data-table__cell--non-numeric">Name</th>
         <th class="mdl-data-table__cell--non-numeric">Standard</th>
         <th class="mdl-data-table__cell--non-numeric">Section</th>
@@ -48,6 +49,7 @@
       <tbody style=" height: 50rem;">
       <% @students.each do |student| %>
           <tr>
+            <td class="mdl-data-table__cell--non-numeric"><%= image_tag student.profile_photo.blank? ? 'user.png' : student.profile_photo, :width => 50, :height => 50, class: 'img-circle' %></td>
             <td class="mdl-data-table__cell--non-numeric"><%= student.first_name %></td>
             <td class="mdl-data-table__cell--non-numeric"><%= student.student_class %></td>
             <td class="mdl-data-table__cell--non-numeric"><%= student.division %></td>

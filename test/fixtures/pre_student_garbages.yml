@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  academic_year_id: 1
+  student_id: 1
+  fee_structure_id: 1
+  allocated_fee: 
+  paid_fee: 
+  balance_fee: 
+
+two:
+  academic_year_id: 1
+  student_id: 1
+  fee_structure_id: 1
+  allocated_fee: 
+  paid_fee: 
+  balance_fee: 

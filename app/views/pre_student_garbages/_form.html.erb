@@ -1,0 +1,47 @@
+<%= form_for(pre_student_garbage) do |f| %>
+  <% if pre_student_garbage.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pre_student_garbage.errors.count, "error") %> prohibited this pre_student_garbage from being saved:</h2>
+
+      <ul>
+      <% pre_student_garbage.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :academic_year_id %>
+    <%= f.number_field :academic_year_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :student_id %>
+    <%= f.number_field :student_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :fee_structure_id %>
+    <%= f.number_field :fee_structure_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :allocated_fee %>
+    <%= f.text_field :allocated_fee %>
+  </div>
+
+  <div class="field">
+    <%= f.label :paid_fee %>
+    <%= f.text_field :paid_fee %>
+  </div>
+
+  <div class="field">
+    <%= f.label :balance_fee %>
+    <%= f.text_field :balance_fee %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

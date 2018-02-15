@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117084153) do
+ActiveRecord::Schema.define(version: 20180215180804) do
 
   create_table "academic_years", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "start_month"
@@ -57,6 +57,17 @@ ActiveRecord::Schema.define(version: 20180117084153) do
     t.datetime "updated_at",         null: false
   end
 
+  create_table "pre_student_garbages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "academic_year_id"
+    t.integer  "student_id"
+    t.integer  "fee_structure_id"
+    t.float    "allocated_fee",    limit: 24
+    t.float    "paid_fee",         limit: 24
+    t.float    "balance_fee",      limit: 24
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "student_fees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "student_id",       null: false
     t.string   "payment_date"
@@ -92,6 +103,7 @@ ActiveRecord::Schema.define(version: 20180117084153) do
     t.string   "discount",                         default: "0"
     t.string   "alternate_mobile",                 default: ""
     t.integer  "academic_year_id"
+    t.string   "profile_photo"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

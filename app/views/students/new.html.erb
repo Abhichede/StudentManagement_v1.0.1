@@ -1,14 +1,6 @@
-<%= link_to "<i class='material-icons'>keyboard_arrow_left</i> Back".html_safe,
-            {controller: 'students', action: 'index', standard: params[:standard],
-             section: params[:section] },
-            class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent' %>
-<div class="mdl-grid">
-  <div class="mdl-layout-spacer"></div>
-    <h3>New Student</h3>
-  <div class="mdl-layout-spacer"></div>
-</div>
 <div class="mdl-grid">
   <div class="mdl-layout-spacer"></div>
   <%= render 'form', student: @student %>
   <div class="mdl-layout-spacer"></div>
 </div>
+<div class="mdl-grid"></div>
