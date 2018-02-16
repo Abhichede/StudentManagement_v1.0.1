@@ -4,17 +4,21 @@ class StudentFeesController < ApplicationController
   # GET /student_fees
   # GET /student_fees.json
   def index
-    if params[:academic_year_id].nil? || params[:standard].nil? || params[:section].nil?
-      @student_fees = StudentFee.all
-    elsif params[:standard] == '' || params[:section] == ''
-      @student_fees = StudentFee.where(:academic_year_id => params[:academic_year_id])
-    else
-      @student_fees = StudentFee.where(:academic_year_id => params[:academic_year_id]).joins(:student).where("student_class = ? AND division = ?", params[:standard], params[:section])
-    end
+    @fees = []
 
-    respond_to do |format|
-      format.html
-      format.xls
+    FeeStructure.all.each do |fee|
+      @students = Student.where("student_class = ? AND division = ?", fee.student_class, fee.section)
+      allocated = 0.0
+      paid = 0.0
+      balance = 0.0
+
+      @students.each do |sfee|
+        allocated += sfee.allocated_fee.to_f
+        paid += sfee.total_paid.to_f
+        balance += (sfee.allocated_fee.to_f + sfee.total_paid.to_f)
+      end
+
+      @fees.push([structure: fee.structure, allocated: allocated, paid: paid, balance: balance])
     end
   end
 

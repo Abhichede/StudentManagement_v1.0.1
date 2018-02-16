@@ -156,4 +156,9 @@ table#myTable_students > tbody > tr > td{
 #student_form_card{
     width: 70%;
 }
+
+tbody tr td{
+    font-size: 14px;
+    /*font-weight: 400;*/
+}
 /* material design end   */

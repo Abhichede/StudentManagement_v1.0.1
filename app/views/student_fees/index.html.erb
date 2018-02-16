@@ -9,140 +9,52 @@
   <div class="table-container mdl-cell mdl-cell--11-col" style="overflow: auto">
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="myTable">
       <thead>
-
         <tr>
-          <form action="<%= student_fees_path %>">
-          <th colspan="2">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="payment_start_date_div">
-              <label for="payment_start_date" class="mdl-textfield__label">Academic Year</label>
-              <%= select_tag "academic_year_id", options_from_collection_for_select(AcademicYear.all, "id", "year"), class: 'mdl-textfield__input', style: 'color: #000' %>
-
-            </div>
-          </th>
-          <th>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="standard-div">
-              <label for="standard" class="mdl-textfield__label">Standard</label>
-              <input type="text" name="standard" id="standard" class="mdl-textfield__input">
-              <ul for="standard" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" id="list_dropdown">
-                <%
-                  avl_classes  = ['Class']
-                  FeeStructure.all.each do |fee_structure|
-                    if !avl_classes.include?(fee_structure.student_class)
-                      avl_classes.push(fee_structure.student_class) %>
-                      <li class="mdl-menu__item" onclick="addListVal(this.innerHTML, 'standard');"><%= fee_structure.student_class %></li>
-                    <%
-                      end
-                  end
-                %>
-              </ul>
-            </div>
-          </th>
-          <th>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height" id="section-div">
-              <label for="section" class="mdl-textfield__label">Section</label>
-              <input type="text" name="section" id="section" class="mdl-textfield__input">
-              <ul for="section" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" id="list_dropdown">
-                <%
-                  avl_sections  = ['Section']
-                  FeeStructure.all.each do |fee_structure|
-                    if !avl_sections.include?(fee_structure.section)
-                      avl_sections.push(fee_structure.section) %>
-                      <li class="mdl-menu__item" onclick="addListVal(this.innerHTML, 'section');"><%= fee_structure.section %></li>
-                      <%
-                        end
-                  end
-                %>
-              </ul>
-            </div>
-          </th>
-          <th>
-            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Filter</button>
-
-          </th>
-          </form>
-          <th colspan="3"><%= link_to "Export to Excel", student_fees_path(format: "xls", start_date: params[:start_date], end_date: params[:end_date], standard: params[:standard], section: params[:section]), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %></th>
-        </tr>
-        <tr>
-          <th class="mdl-data-table__cell--non-numeric">Student</th>
-          <th class="mdl-data-table__cell--non-numeric">Payment date</th>
-          <th class="mdl-data-table__cell--non-numeric">Installment no</th>
-          <th class="mdl-data-table__cell--non-numeric">Amount</th>
-          <th class="mdl-data-table__cell--non-numeric">Payment method</th>
-          <th class="mdl-data-table__cell--non-numeric">Payment desc</th>
-          <th class="mdl-data-table__cell--non-numeric">Paid by</th>
-          <th class="mdl-data-table__cell--non-numeric">Received by</th>
-
+          <th class="mdl-data-table__cell--non-numeric">Batch</th>
+          <th class="mdl-data-table__cell--non-numeric">Allocated</th>
+          <th class="mdl-data-table__cell--non-numeric">Paid</th>
+          <th class="mdl-data-table__cell--non-numeric">Balance</th>
         </tr>
       </thead>
 
       <tbody style=" height: 20rem;">
-        <% @student_fees.each do |student_fee| %>
+        <%
+          allocated = 0.0
+          paid = 0.0
+          balance = 0.0
+        %>
+        <% @fees.each do |student_fee| %>
           <tr>
-            <td class="mdl-data-table__cell--non-numeric"><%= link_to student_fee.student.first_name.upcase, student_path(student_fee.student) %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%= student_fee.payment_date %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%= student_fee.installment_no %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%= student_fee.amount %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%= student_fee.payment_method %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%= student_fee.payment_desc %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%= student_fee.paid_by %></td>
-            <td class="mdl-data-table__cell--non-numeric"><%= student_fee.received_by %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= student_fee[0].to_h[:structure] %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= student_fee[0].to_h[:allocated] %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= student_fee[0].to_h[:paid] %></td>
+            <td class="mdl-data-table__cell--non-numeric"><%= student_fee[0].to_h[:balance] %></td>
           </tr>
+          <%
+            allocated += student_fee[0].to_h[:allocated]
+            paid += student_fee[0].to_h[:paid]
+            balance += student_fee[0].to_h[:balance]
+          %>
         <% end %>
+      </tbody>
+    </table>
+
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="myTable">
+      <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">Total Allocated</th>
+          <th class="mdl-data-table__cell--non-numeric">Total Paid</th>
+          <th class="mdl-data-table__cell--non-numeric">Total Balance</th>
+        </tr>
+      </thead>
+      <tbody style=" height: 3rem;">
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric"><%= allocated %></td>
+        <td class="mdl-data-table__cell--non-numeric"><%= paid %></td>
+        <td class="mdl-data-table__cell--non-numeric"><%= balance %></td>
+      </tr>
       </tbody>
     </table>
   </div>
   <div class="mdl-layout-spacer"></div>
 </div>
-<div class="mdl-grid">
-  <div class="mdl-layout-spacer"></div>
-<%
-  total_allocated_fees = 0
-  total_discount = 0
-  total_paid_fees = 0
-  total_balance_fee = 0
-
-  if !@student_fees.blank?
-    @student_fees.each do |fee|
-      total_allocated_fees += fee.student.allocated_fee.to_f.round(2)
-      total_discount += fee.student.discount.to_f.round(2)
-      total_paid_fees += fee.student.total_paid.to_f.round(2)
-    end
-    total_balance_fee = (total_allocated_fees - total_discount) - total_paid_fees
-  end
-%>
-<div style="overflow: auto">
-  <% if current_user.role == 'ADMIN' %>
-  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-    <thead>
-      <tr>
-        <th class="mdl-data-table__cell--non-numeric">Allocated Fee</th>
-        <th></th>
-        <th class="mdl-data-table__cell--non-numeric">Discount</th>
-        <th ></th>
-        <th class="mdl-data-table__cell--non-numeric">Paid Fee</th>
-        <th></th>
-        <th class="mdl-data-table__cell--non-numeric">Balance Fee</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="mdl-data-table__cell--non-numeric" colspan="2">&#8377; <%= number_to_indian_currency(total_allocated_fees) %></td>
-        <td class="mdl-data-table__cell--non-numeric" colspan="2">&#8377; <%= number_to_indian_currency(total_discount) %></td>
-        <td class="mdl-data-table__cell--non-numeric" colspan="2">&#8377; <%= number_to_indian_currency(total_paid_fees) %></td>
-        <td class="mdl-data-table__cell--non-numeric" colspan="2">&#8377; <%= number_to_indian_currency(total_balance_fee) %></td>
-      </tr>
-    </tbody>
-  </table>
-  <% end %>
-</div>
-  <div class="mdl-layout-spacer"></div>
-</div>
-
-<script type="text/javascript">
-    var addListVal = function (value, input) {
-        console.log(value);
-        $('input#'+input).val(value);
-        $('#'+input+'-div').addClass('is-dirty')
-    };
-</script>
