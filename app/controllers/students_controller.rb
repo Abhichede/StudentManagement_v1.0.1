@@ -124,7 +124,7 @@ class StudentsController < ApplicationController
   end
 
   def search_student_name
-    @students = Student.where("first_name LIKE ?", "%#{params[:name]}%") unless params[:name].blank?
+    @students = Student.where("lower(first_name) LIKE lower(?)", "%#{params[:name]}%") unless params[:name].blank?
   end
 
 
