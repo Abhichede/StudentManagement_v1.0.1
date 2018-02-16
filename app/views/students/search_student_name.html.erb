@@ -1,0 +1,43 @@
+<div class="mdl-grid">
+  <div class="mdl-layout-spacer"></div>
+  <div class="" style="overflow: auto">
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="myTable_students">
+      <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">Profile</th>
+          <th class="mdl-data-table__cell--non-numeric">Name</th>
+          <th class="mdl-data-table__cell--non-numeric">Standard</th>
+          <th class="mdl-data-table__cell--non-numeric">Section</th>
+          <th class="mdl-data-table__cell--non-numeric">College</th>
+          <th class="mdl-data-table__cell--non-numeric">Mobile No.</th>
+          <th class="mdl-data-table__cell--non-numeric">Balance Fee</th>
+          <th class="mdl-data-table__cell--non-numeric">View</th>
+        </tr>
+      </thead>
+
+      <tbody style=" height: 50rem;">
+        <% @students.nil? ? Student.all.each : @students.each do |student| %>
+        <tr>
+          <td class="mdl-data-table__cell--non-numeric"><%= image_tag student.profile_photo.blank? ? 'user.png' : student.profile_photo, :width => 50, :height => 50, class: 'img-circle' %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= student.first_name %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= student.student_class %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= student.division %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= student.college_name %></td>
+          <td class="mdl-data-table__cell--non-numeric"><%= student.mobile_no %></td>
+          <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency((previous_balance(student) + student.allocated_fee.to_f - student.discount.to_f) - student.total_paid.to_f) %></td>
+          <td class="mdl-data-table__cell--non-numeric">
+            <%= link_to student, class: 'mdl-button mdl-js-button mdl-button--icon' do %>
+            <i class="material-icons" id='tt_show_<%= student.id %>'>pageview</i>
+            <% end %>
+          </td>
+        </tr>
+
+        <div class="mdl-tooltip" data-mdl-for="tt_show_<%= student.id %>">
+          <strong>View Student</strong>
+        </div>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="mdl-layout-spacer"></div>
+</div>

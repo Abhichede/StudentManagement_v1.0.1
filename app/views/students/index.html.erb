@@ -12,7 +12,7 @@
 
       <tr>
         <form action="<%= students_path %>">
-          <th colspan="6">
+          <th colspan="4">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" id="filter_by_query" name="query" value="<%= params[:query] %>">
               <label class="mdl-textfield__label" for="filter_by_query">Search</label>
@@ -24,12 +24,14 @@
             <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Search</button>
           </th>
         </form>
-        <th>
+        <th colspan="2">
           <%= link_to 'New Student', {controller: 'students', action: 'new',
                                       standard: params[:standard], section: params[:section] },
                       class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
         </th>
-        <th colspan="2"></th>
+        <th colspan="2">
+          <%= link_to "Export to Excel", students_path(format: "xls", standard: params[:standard], section: params[:section]), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored' %>
+        </th>
       </tr>
       <tr>
         <th class="mdl-data-table__cell--non-numeric">Profile</th>
@@ -55,7 +57,7 @@
             <td class="mdl-data-table__cell--non-numeric"><%= student.division %></td>
             <td class="mdl-data-table__cell--non-numeric"><%= student.college_name %></td>
             <td class="mdl-data-table__cell--non-numeric"><%= student.mobile_no %></td>
-            <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency((student.allocated_fee.to_f - student.discount.to_f) - student.total_paid.to_f) %></td>
+            <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency((previous_balance(student) + student.allocated_fee.to_f - student.discount.to_f) - student.total_paid.to_f) %></td>
             <td class="mdl-data-table__cell--non-numeric">
               <%= link_to student, class: 'mdl-button mdl-js-button mdl-button--icon' do %>
                   <i class="material-icons" id='tt_show_<%= student.id %>'>pageview</i>

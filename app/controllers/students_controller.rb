@@ -11,6 +11,11 @@ class StudentsController < ApplicationController
       @students = Student.where("student_class = ? AND division = ?", "#{params[:standard]}",
                                 "#{params[:section]}").order(:created_at => "DESC")
     end
+
+    respond_to do |format|
+      format.html
+      format.xls
+    end
   end
 
   # GET /students/1
@@ -117,6 +122,11 @@ class StudentsController < ApplicationController
   def dashboard
     @fee_structures = FeeStructure.all
   end
+
+  def search_student_name
+    @students = Student.where("first_name LIKE ?", "%#{params[:name]}%") unless params[:name].blank?
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

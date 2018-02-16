@@ -29,6 +29,13 @@
           <span class="mdl-layout-title"><%= link_to ClassInfo.first.class_name.upcase, root_path, style: 'color: white' %>  <span id="page_name"></span></span>
           <!-- Add spacer, to align navigation to the right -->
           <div class="mdl-layout-spacer"></div>
+          <form action="<%= search_student_by_name_path %>">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="filter_by_query" name="name" value="<%= params[:name] %>" autocomplete="off">
+              <label class="mdl-textfield__label" for="filter_by_query" style="color: #F7F7F7">Search</label>
+            </div>
+          </form>
+
           <!-- Right aligned menu below button -->
           <button id="demo-menu-lower-right"
                   class="mdl-button mdl-js-button mdl-button--icon">
@@ -83,9 +90,22 @@
         <div class="mdl-mini-footer__right-section">
           <div class="mdl-logo">POWERED BY LINKER IT SOLUTIONS </div>
         </div>
+        <script type="text/javascript">
+            $("#search_student_field").on('keyup change', function () {
+                get_searched_student($("#search_student_field").val());
+            });
+            var get_searched_student = function (student_name) {
 
+                $.ajax({
+                    url: '<%= search_student_by_name_url %>',
+                    data: 'name='+ student_name,
+                    type: 'GET'
+                });
+            };
+        </script>
 
       </footer>
     </div>
   </body>
 </html>
+

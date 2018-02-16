@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   get 'print_receipt', to: 'students#print_receipt'
 
   get 'student_dashboard', to: 'students#dashboard'
+  get 'search_student_by_name', to: 'students#search_student_name'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -188,7 +188,7 @@
             </tr>
             <tr>
               <th>Balance Fee</th>
-              <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency((previous_balance + @student.allocated_fee.to_f.round(2) - @student.discount.to_f.round(2)) - @student.total_paid.to_f.round(2)) %></td>
+              <td class="mdl-data-table__cell--non-numeric">&#8377; <%= number_to_indian_currency((previous_balance(@student) + @student.allocated_fee.to_f.round(2) - @student.discount.to_f.round(2)) - @student.total_paid.to_f.round(2)) %></td>
             </tr>
             </tbody>
           </table>

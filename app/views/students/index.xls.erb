@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Student Name</Data></Cell>
+        <Cell><Data ss:Type="String">Standard</Data></Cell>
+        <Cell><Data ss:Type="String">Section</Data></Cell>
+        <Cell><Data ss:Type="String">Mobile</Data></Cell>
+        <Cell><Data ss:Type="String">Allocated fee</Data></Cell>
+        <Cell><Data ss:Type="String">Paid fee</Data></Cell>
+        <Cell><Data ss:Type="String">Balance fee</Data></Cell>
+        <Cell><Data ss:Type="String">Previous balance fee</Data></Cell>
+      </Row>
+      <% @students.each do |fee| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= fee.first_name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.student_class %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.division %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= fee.mobile_no %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= fee.allocated_fee %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.total_paid %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= fee.allocated_fee.to_f.round(2) - fee.total_paid.to_f.round(2) %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= previous_balance(fee) %></Data></Cell>
+          </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
